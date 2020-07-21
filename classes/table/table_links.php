@@ -15,44 +15,51 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Helper functions
+ * Table link overview
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @package   moodle-block_fastnav
- * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
 
-namespace block_fastnav;
-defined('MOODLE_INTERNAL') || die;
+namespace block_fastnav\table;
+defined('MOODLE_INTERNAL') || die();
 
 /**
- * Class helper
+ * Class table_links
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @package   moodle-block_fastnav
- * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
-class helper {
+class table_links extends \table_sql {
 
     /**
-     * Get file upload information.
-     *
-     * @param int $maxfiles
-     *
-     * @return array
+     * @param string $uniqueid
+     * @param int    $blockinstanceid
      */
-    public static function get_file_options(int $maxfiles = 1) : array {
-        global $CFG;
+    public function __construct(string $uniqueid , int $blockinstanceid) {
 
-        return [
-            'maxbytes' => $CFG->maxbytes,
-            'subdirs' => 0,
-            'maxfiles' => $maxfiles,
-            'accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'],
+        parent::__construct($uniqueid);
+
+        $this->sql = new \stdClass();
+        $this->sql->fields = 'i.*';
+        $this->sql->from = '{block_fastnav} i';
+        $this->sql->where = 'blockinstanceid = :blockinstanceid';
+        $this->sql->params = [
+            'blockinstanceid' => $blockinstanceid
         ];
+
+        $this->countsql = 'SELECT COUNT(*) FROM ' . $this->sql->from . ' WHERE ' . $this->sql->where;
+        $this->countparams = $this->sql->params;
     }
+
+    public function col_action(\stdClass $row) {
+        return '';
+    }
+
 }

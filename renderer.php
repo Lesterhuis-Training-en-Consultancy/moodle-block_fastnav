@@ -1,0 +1,107 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Renderer UI class
+ *
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * @package   moodle-block_fastnav
+ * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author    Luuk Verhoeven
+ **/
+
+defined('MOODLE_INTERNAL') || die();
+require_once($CFG->libdir . '/tablelib.php');
+
+/**
+ * Class block_fastnav_renderer
+ *
+ * @package   moodle-block_fastnav
+ * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author    Luuk Verhoeven
+ */
+class block_fastnav_renderer extends plugin_renderer_base {
+
+    /**
+     * @param block_fastnav $block
+     *
+     * @return string
+     * @throws coding_exception
+     * @throws moodle_exception
+     */
+    public function get_management_buttons(\block_fastnav $block) : string {
+
+        return html_writer::link(new moodle_url('/blocks/fastnav/view/edit.php', [
+            'instanceid' => $block->instance->id,
+            'courseid' => $block->page->course->id,
+        ]),
+            get_string('btn:edit', 'block_fastnav'), [
+                'class' => 'btn btn-primary',
+            ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function get_edit_link_table() : string {
+        global $PAGE;
+
+        $table = new block_fastnav\table\table_links(__CLASS__ , $PAGE->context->instanceid);
+        $table->set_attribute('cellspacing', '0');
+        $table->set_attribute('class', 'generaltable generalbox reporttable');
+        $table->initialbars(true); // always initial bars
+        $table->define_baseurl($PAGE->url);
+        // Set columns.
+        $columns = [
+            'id',
+            'name',
+            'link',
+            'sortorder',
+            'action',
+        ];
+
+        $table->define_columns($columns);
+        $table->define_headers(array_map(static function ($val) {
+            return get_string('heading:table_' . $val, 'block_fastnav');
+        }, $columns));
+
+        $table->sortable(true, 'sortorder', SORT_ASC);
+        $table->no_sorting('action');
+        $table->collapsible(false);
+
+        $table->out(100, true);
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        return $content;
+    }
+
+    /**
+     * @return string
+     * @throws coding_exception
+     * @throws moodle_exception
+     */
+    public function get_edit_button() : string {
+        global $PAGE;
+        $params = $PAGE->url->params();
+
+        return $this->render_from_template('block_fastnav/edit_management', [
+            'link' => (new moodle_url('/blocks/fastnav/view/edit.php', array_merge($params, ['action' => 'edit'])))->out(false),
+        ]);
+    }
+
+}

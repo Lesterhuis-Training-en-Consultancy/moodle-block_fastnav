@@ -15,44 +15,35 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Helper functions
+ *
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @package   moodle-block_fastnav
- * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
-
-namespace block_fastnav;
 defined('MOODLE_INTERNAL') || die;
 
-/**
- * Class helper
- *
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
- * @package   moodle-block_fastnav
- * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
- * @author    Luuk Verhoeven
- */
-class helper {
+function xmldb_block_fastnav_upgrade($oldversion) {
 
-    /**
-     * Get file upload information.
-     *
-     * @param int $maxfiles
-     *
-     * @return array
-     */
-    public static function get_file_options(int $maxfiles = 1) : array {
-        global $CFG;
+    global $DB;
+    $dbman = $DB->get_manager();
 
-        return [
-            'maxbytes' => $CFG->maxbytes,
-            'subdirs' => 0,
-            'maxfiles' => $maxfiles,
-            'accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'],
-        ];
+    if ($oldversion < 2020072000) {
+
+        // Define field sort to be added to block_fastnav.
+        $table = new xmldb_table('block_fastnav');
+        $field = new xmldb_field('sortorder', XMLDB_TYPE_INTEGER, '11', null, null, null, '0', 'blockinstanceid');
+
+        // Conditionally launch add field sort.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Fastnav savepoint reached.
+        upgrade_block_savepoint(true, 2020072000, 'fastnav');
     }
+
+    return true;
 }

@@ -49,4 +49,16 @@ $capabilities = [
 
         'clonepermissionsfrom' => 'moodle/site:manageblocks',
     ],
+
+    'block/fastnav:management' => [
+        'riskbitmask' => RISK_SPAM,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => [
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+        ],
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks',
+    ],
 ];

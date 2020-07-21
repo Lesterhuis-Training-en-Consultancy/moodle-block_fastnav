@@ -36,6 +36,9 @@ defined('MOODLE_INTERNAL') || die;
  */
 class block_fastnav extends block_base {
 
+    /**
+     * @throws coding_exception
+     */
     public function init() : void {
         $this->title = get_string('pluginname', 'block_fastnav');
     }
@@ -46,7 +49,7 @@ class block_fastnav extends block_base {
      *
      * @return boolean
      */
-    public function has_config() {
+    public function has_config() : bool {
         return true;
     }
 
@@ -61,25 +64,32 @@ class block_fastnav extends block_base {
      *
      * @return array page-type prefix => true/false.
      */
-    function applicable_formats() {
+    public function applicable_formats() : array {
         return ['all' => true];
     }
 
-    public function specialization() {
+    /**
+     * @throws coding_exception
+     */
+    public function specialization() : void {
         if (isset($this->config->title)) {
             $this->title = $this->title = format_string($this->config->title, true, ['context' => $this->context]);
-        } else {
-            $this->title = get_string('newhtmlblock', 'block_fastnav');
+
+            return;
         }
+
+        $this->title = get_string('pluginname', 'block_fastnav');
+
     }
 
     /**
      * Are you going to allow multiple instances of each block?
      * If yes, then it is assumed that the block WILL USE per-instance configuration
+     *
      * @return boolean
      */
-    public function instance_allow_multiple() {
-        return true;
+    public function instance_allow_multiple() : bool{
+        return false;
     }
 
     /**
@@ -88,9 +98,10 @@ class block_fastnav extends block_base {
      * the content object.
      *
      * @return stdObject
+     * @throws coding_exception
      */
     public function get_content() {
-        global $CFG;
+        global $CFG , $PAGE;
 
         require_once($CFG->libdir . '/filelib.php');
 
@@ -100,14 +111,20 @@ class block_fastnav extends block_base {
 
         $filteropt = new stdClass;
         $filteropt->overflowdiv = true;
-        if ($this->content_is_trusted()) {
-            // fancy html allowed only on course, category and system blocks.
-            $filteropt->noclean = true;
-        }
 
         $this->content = new stdClass;
+        $this->content->text = '';
         $this->content->footer = '';
+
+        /** @var \block_fastnav\block_fastnav_renderer $renderer **/
+        $renderer = $PAGE->get_renderer('block_fastnav');
+
+        if(has_capability('block/fastnav:management', $this->context)){
+            $this->content->text .= $renderer->get_management_buttons($this);
+        }
+
         if (isset($this->config->text)) {
+
             // rewrite url
             $this->config->text = file_rewrite_pluginfile_urls($this->config->text, 'pluginfile.php',
                 $this->context->id, 'block_fastnav', 'content', null);
@@ -115,62 +132,18 @@ class block_fastnav extends block_base {
             // editor was properly implemented for the block.
             $format = $this->config->format ?? FORMAT_HTML;
             $this->content->text = format_text($this->config->text, $format, $filteropt);
-        } else {
-            $this->content->text = '';
         }
-
-        unset($filteropt); // memory footprint
 
         return $this->content;
     }
 
     /**
-     * Return an object containing all the block content to be returned by external functions.
-     *
-     * If your block is returning formatted content or provide files for download, you should override this method to use the
-     * external_format_text, external_format_string functions for formatting or external_util::get_area_files for files.
-     *
-     * @param  core_renderer $output the rendered used for output
-     * @return stdClass      object containing the block title, central content, footer and linked files (if any).
-     * @since  Moodle 3.6
-     */
-    public function get_content_for_external($output) {
-        global $CFG;
-        require_once($CFG->libdir . '/externallib.php');
-
-        $bc = new stdClass;
-        $bc->title = null;
-        $bc->content = '';
-        $bc->contenformat = FORMAT_MOODLE;
-        $bc->footer = '';
-        $bc->files = [];
-
-        if (!$this->hide_header()) {
-            $bc->title = $this->title;
-        }
-
-        if (isset($this->config->text)) {
-            $filteropt = new stdClass;
-            if ($this->content_is_trusted()) {
-                // Fancy html allowed only on course, category and system blocks.
-                $filteropt->noclean = true;
-            }
-
-            $format = $this->config->format ?? FORMAT_HTML;
-            [$bc->content, $bc->contentformat] =
-                external_format_text($this->config->text, $format, $this->context,
-                    'block_fastnav', 'content', null, $filteropt);
-            $bc->files = external_util::get_area_files($this->context->id,
-                'block_fastnav', 'content', false, false);
-        }
-
-        return $bc;
-    }
-
-    /**
      * Serialize and store config data
+     *
+     * @param      $data
+     * @param bool $nolongerused
      */
-    public function instance_config_save($data, $nolongerused = false) {
+    public function instance_config_save($data, $nolongerused = false) : void {
 
         $config = clone($data);
         // Move embedded files into a proper filearea and adjust HTML links to match
@@ -181,7 +154,10 @@ class block_fastnav extends block_base {
         parent::instance_config_save($config, $nolongerused);
     }
 
-    function instance_delete() {
+    /**
+     * @return bool
+     */
+    public function instance_delete() : bool {
         $fs = get_file_storage();
         $fs->delete_area_files($this->context->id, 'block_fastnav');
 
@@ -195,7 +171,7 @@ class block_fastnav extends block_base {
      *
      * @return boolean
      */
-    public function instance_copy($fromid) {
+    public function instance_copy($fromid) : bool {
         $fromcontext = context_block::instance($fromid);
         $fs = get_file_storage();
         // This extra check if file area is empty adds one query if it is not empty but saves several if it is.
@@ -208,70 +184,13 @@ class block_fastnav extends block_base {
         return true;
     }
 
-    function content_is_trusted() {
-        global $SCRIPT;
-
-        if (!$context = context::instance_by_id($this->instance->parentcontextid, IGNORE_MISSING)) {
-            return false;
-        }
-        //find out if this block is on the profile page
-        if ($context->contextlevel == CONTEXT_USER) {
-            if ($SCRIPT === '/my/index.php') {
-                // this is exception - page is completely private, nobody else may see content there
-                // that is why we allow JS here
-                return true;
-            } else {
-                // no JS on public personal pages, it would be a big security issue
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     /**
      * The block should only be dockable when the title of the block is not empty
      * and when parent allows docking.
      *
      * @return bool
      */
-    public function instance_can_be_docked() {
+    public function instance_can_be_docked() : bool {
         return (!empty($this->config->title) && parent::instance_can_be_docked());
-    }
-
-    /*
-     * Add custom html attributes to aid with theming and styling
-     *
-     * @return array
-     */
-    function html_attributes() {
-        global $CFG;
-
-        $attributes = parent::html_attributes();
-
-        if (!empty($CFG->block_fastnav_allowcssclasses) && !empty($this->config->classes)) {
-            $attributes['class'] .= ' ' . $this->config->classes;
-        }
-
-        return $attributes;
-    }
-
-    /**
-     * Return the plugin config settings for external functions.
-     *
-     * @return stdClass the configs for both the block instance and plugin
-     * @since Moodle 3.8
-     */
-    public function get_config_for_external() {
-        global $CFG;
-
-        // Return all settings for all users since it is safe (no private keys, etc..).
-        $instanceconfigs = !empty($this->config) ? $this->config : new stdClass();
-        $pluginconfigs = (object)['allowcssclasses' => $CFG->block_fastnav_allowcssclasses];
-
-        return (object)[
-            'instance' => $instanceconfigs,
-            'plugin' => $pluginconfigs,
-        ];
     }
 }

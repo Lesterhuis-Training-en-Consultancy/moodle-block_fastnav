@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,17 +14,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * Javascript fast navigation interactive sidebar
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * @package   moodle-block_fastnav
- * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @copyright 17/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
-
-$plugin->version = 2020072000;
-$plugin->requires = 2020050600;
-$plugin->component = 'block_fastnav';
-$plugin->maturity = MATURITY_BETA;
-$plugin->release = '3.9.0';

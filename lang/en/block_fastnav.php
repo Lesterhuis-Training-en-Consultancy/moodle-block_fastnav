@@ -29,3 +29,23 @@ $string['pluginname'] = 'Block Fast Navigation';
 $string['fastnav:addinstance'] = 'Add a new fast navigation block';
 $string['fastnav:myaddinstance'] = 'Add a new fast navigation block to Dashboard';
 $string['privacy:metadata'] = 'The block_fastnav doesn\'t store any data.';
+
+// Buttons.
+$string['btn:edit'] = 'Edit';
+$string['btn:add'] = 'Add';
+$string['btn:update'] = 'Update';
+
+// Headings.
+$string['heading:overview'] = 'Overview';
+
+// Table.
+$string['heading:table_id'] = 'ID';
+$string['heading:table_name'] = 'Name';
+$string['heading:table_link'] = 'Link';
+$string['heading:table_sortorder'] = 'Sort';
+$string['heading:table_action'] = 'Action';
+
+// Forms.
+$string['form:name'] = 'Name';
+$string['form:link'] = 'Link';
+$string['form:link_icon'] = 'Icon';

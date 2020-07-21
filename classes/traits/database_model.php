@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 namespace block_fastnav\traits;
 
+use coding_exception;
 use dml_exception;
 use ReflectionClass;
 use ReflectionException;
@@ -23,7 +24,8 @@ use stdClass;
 defined('MOODLE_INTERNAL') || die;
 
 /**
- *
+ * Database model trait
+ *  - easy way to work with database records
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -42,9 +44,12 @@ trait database_model {
 
     /**
      * @param $record
+     *
+     * @return $this
      */
-    public function set_record(stdClass $record) : void {
+    public function set_record(stdClass $record) : self {
         $this->record = $record;
+        return $this;
     }
 
     /**
@@ -101,7 +106,7 @@ trait database_model {
     }
 
     /**
-     * Create a new record
+     * Create a record
      *
      * @return int
      * @throws dml_exception
@@ -168,20 +173,67 @@ trait database_model {
     }
 
     /**
-     * Mark item as deleted
-     *
-     * @param bool $hard_delete
+     * Delete a record
      *
      * @return bool
      * @throws \dml_exception
      */
-    public function delete(bool $hard_delete = false) : bool {
+    public function delete() : bool {
         global $DB;
 
-        if ($hard_delete) {
-            $DB->delete_records(self::$table, ['id' => $this->get_id()]);
-
-            return true;
-        }
+        $DB->delete_records(self::$table, ['id' => $this->get_id()]);
+        return true;
     }
+
+    /**
+     * Moves a record
+     *
+     * @param int   $direction  move direction: +1 or -1
+     * @param array $conditions used for getting matching records
+     *
+     * @return bool
+     * @throws coding_exception
+     * @throws dml_exception
+     */
+    public function change_sortorder(int $direction, array $conditions = []) : bool {
+        global $DB;
+
+        if ($direction !== -1 && $direction !== 1) {
+            throw new coding_exception('Second argument in change_sortorder() can be only 1 or -1');
+        }
+
+        $records = $DB->get_records(self::$table, $conditions, 'sortorder ASC');
+
+        $keys = array_keys($records);
+        $idx = array_search($this->get_id(), $keys, false);
+
+        if ($idx === false || $idx + $direction < 0 || $idx + $direction >= count($records)) {
+            return false;
+        }
+        $otherid = $keys[$idx + $direction];
+
+        $DB->update_record(self::$table, (object)[
+            'id' => $this->get_id(),
+            'sortorder' => $idx + $direction,
+        ]);
+
+        $DB->update_record(self::$table, (object)[
+            'id' => $otherid,
+            'sortorder' => $idx,
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Magic getter
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function __get(string $name){
+        return $this->record->$name ?? null;
+    }
+
 }

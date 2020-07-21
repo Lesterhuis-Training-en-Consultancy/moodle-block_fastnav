@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
+ * Upgrade database
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -25,6 +25,15 @@
  **/
 defined('MOODLE_INTERNAL') || die;
 
+/**
+ * @param $oldversion
+ *
+ * @return bool
+ * @throws ddl_exception
+ * @throws ddl_table_missing_exception
+ * @throws downgrade_exception
+ * @throws upgrade_exception
+ */
 function xmldb_block_fastnav_upgrade($oldversion) {
 
     global $DB;
@@ -43,6 +52,21 @@ function xmldb_block_fastnav_upgrade($oldversion) {
 
         // Fastnav savepoint reached.
         upgrade_block_savepoint(true, 2020072000, 'fastnav');
+    }
+
+    if ($oldversion < 2020072100) {
+
+        // Define field contextid to be added to block_fastnav.
+        $table = new xmldb_table('block_fastnav');
+        $field = new xmldb_field('contextid', XMLDB_TYPE_INTEGER, '11', null, null, null, null, 'blockinstanceid');
+
+        // Conditionally launch add field contextid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Fastnav savepoint reached.
+        upgrade_block_savepoint(true, 2020072100, 'fastnav');
     }
 
     return true;

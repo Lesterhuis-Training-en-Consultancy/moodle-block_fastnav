@@ -79,7 +79,6 @@ class block_fastnav extends block_base {
         }
 
         $this->title = get_string('pluginname', 'block_fastnav');
-
     }
 
     /**
@@ -109,30 +108,18 @@ class block_fastnav extends block_base {
             return $this->content;
         }
 
-        $filteropt = new stdClass;
-        $filteropt->overflowdiv = true;
-
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
 
-        /** @var \block_fastnav\block_fastnav_renderer $renderer **/
+        /** @var block_fastnav_renderer $renderer **/
         $renderer = $PAGE->get_renderer('block_fastnav');
 
         if(has_capability('block/fastnav:management', $this->context)){
             $this->content->text .= $renderer->get_management_buttons($this);
         }
 
-        if (isset($this->config->text)) {
-
-            // rewrite url
-            $this->config->text = file_rewrite_pluginfile_urls($this->config->text, 'pluginfile.php',
-                $this->context->id, 'block_fastnav', 'content', null);
-            // Default to FORMAT_HTML which is what will have been used before the
-            // editor was properly implemented for the block.
-            $format = $this->config->format ?? FORMAT_HTML;
-            $this->content->text = format_text($this->config->text, $format, $filteropt);
-        }
+        $this->content->text .= $renderer->get_block_item_list($this->context);
 
         return $this->content;
     }
@@ -147,9 +134,9 @@ class block_fastnav extends block_base {
 
         $config = clone($data);
         // Move embedded files into a proper filearea and adjust HTML links to match
-        $config->text = file_save_draft_area_files($data->text['itemid'], $this->context->id,
-            'block_fastnav', 'content', 0, ['subdirs' => true], $data->text['text']);
-        $config->format = $data->text['format'];
+//        $config->text = file_save_draft_area_files($data->text['itemid'], $this->context->id,
+//            'block_fastnav', 'content', 0, ['subdirs' => true], $data->text['text']);
+//        $config->format = $data->text['format'];
 
         parent::instance_config_save($config, $nolongerused);
     }

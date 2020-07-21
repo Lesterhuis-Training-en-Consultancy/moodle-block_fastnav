@@ -24,7 +24,7 @@
  * @author    Luuk Verhoeven
  **/
 
-$plugin->version = 2020072000;
+$plugin->version = 2020072100;
 $plugin->requires = 2020050600;
 $plugin->component = 'block_fastnav';
 $plugin->maturity = MATURITY_BETA;

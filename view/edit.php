@@ -60,6 +60,17 @@ $baseurl->param('action', '');
 $baseurl->param('id', '');
 
 switch ($action) {
+
+    case 'up':
+        $item->change_sortorder(-1);
+        redirect($baseurl);
+        break;
+
+    case 'down':
+        $item->change_sortorder(1);
+        redirect($baseurl);
+        break;
+
     case 'edit':
         $form = new \block_fastnav\form\form_edit_item($PAGE->url , [
             'item' => $item,

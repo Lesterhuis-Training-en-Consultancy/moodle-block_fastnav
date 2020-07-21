@@ -29,6 +29,8 @@ namespace block_fastnav;
 use block_fastnav\traits\database_model;
 use context_block;
 use dml_exception;
+use html_writer;
+use moodle_url;
 use stdClass;
 
 defined('MOODLE_INTERNAL') || die;
@@ -94,7 +96,8 @@ class item {
     public function save(stdClass $formdata, context_block $context) : bool {
 
         if (empty($formdata->id)) {
-            $formdata->blockinstanceid = $context->instanceid;
+            $formdata->blockinstanceid = $context->instanceid; // Maybe we can only use context id.
+            $formdata->contextid = $context->id;
             $formdata->sortorder = $this->get_new_sortorder($context->instanceid);
         }
 
@@ -116,20 +119,78 @@ class item {
     }
 
     /**
-     * @param array $filter
+     * Used for getting formdata
+     *
+     * @return stdClass
+     */
+    public function get_data() : stdClass {
+        $record = $this->record;
+
+        return $record;
+    }
+
+    /**
+     * @return string
+     */
+    public function name() : string {
+        return $this->record->name ?? '';
+    }
+
+    /**
+     * @return string
+     * @throws \coding_exception
+     */
+    public function icon() : string {
+
+        $fs = get_file_storage();
+        $files = $fs->get_area_files($this->get('contextid'), 'block_fastnav', 'link_icon', $this->get_id());
+        foreach ($files as $file) {
+
+            if ($file->is_valid_image() === false) {
+                continue;
+            }
+
+            $url = moodle_url::make_pluginfile_url(
+                $file->get_contextid(),
+                $file->get_component(),
+                $file->get_filearea(),
+                $file->get_itemid(),
+                $file->get_filepath(),
+                $file->get_filename()
+            );
+
+            return html_writer::img($url, $file->get_filename(), [
+                'class' => 'block-fastnav-icon',
+            ]);
+        }
+
+        return '';
+    }
+
+    /**
+     * @return string
+     * @throws \moodle_exception
+     */
+    public function link() : string {
+        return new moodle_url($this->record->link ?? '');
+    }
+
+    /**
+     * @param array $conditions
      *
      * @return array
      * @throws dml_exception
      */
-    public static function get_items(array $filter) : array {
+    public static function get_items(array $conditions) : array {
         global $DB;
+
+        // @TODO caching layer.
         $items = [];
 
-        $rs = $DB->get_recordset(self::$table, $filter);
+        $rs = $DB->get_recordset(self::$table, $conditions);
         foreach ($rs as $item) {
-
-            $iteminstance = new self();
-            $items[$item->id] = $iteminstance->set_record($item);
+            // Mapping.
+            $items[$item->id] = (new self())->set_record($item);
         }
         $rs->close();
 

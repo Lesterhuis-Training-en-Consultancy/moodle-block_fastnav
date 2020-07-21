@@ -19,3 +19,15 @@
     @copyright 17/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
     @author    Luuk Verhoeven
 }}
+<ul class="block-fastnav-items">
+    {{#items}}
+        <li>
+            <a href="{{link}}" rel="noreferrer" title="{{name}}">
+                {{{icon}}}
+                <span class="block-fastnav-name">
+                    {{name}}
+                </span>
+            </a>
+        </li>
+    {{/items}}
+</ul>

@@ -1,0 +1,14 @@
+.block_fastnav ul.block-fastnav-items{
+    list-style:none;
+    margin: 0;
+    padding: 0
+}
+
+.block_fastnav ul.block-fastnav-items li{
+    padding:10px 0;
+    margin: 0;
+}
+
+.block-fastnav-icon{
+    max-width:100px;
+}

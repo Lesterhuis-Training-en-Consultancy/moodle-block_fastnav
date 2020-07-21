@@ -24,6 +24,8 @@
  * @author    Luuk Verhoeven
  **/
 
+use block_fastnav\output\output_items;
+
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/tablelib.php');
 
@@ -60,17 +62,17 @@ class block_fastnav_renderer extends plugin_renderer_base {
     public function get_edit_link_table() : string {
         global $PAGE;
 
-        $table = new block_fastnav\table\table_links(__CLASS__ , $PAGE->context->instanceid);
+        $table = new block_fastnav\table\table_links(__CLASS__, $PAGE->context->instanceid);
         $table->set_attribute('cellspacing', '0');
         $table->set_attribute('class', 'generaltable generalbox reporttable');
         $table->initialbars(true); // always initial bars
         $table->define_baseurl($PAGE->url);
+
         // Set columns.
         $columns = [
-            'id',
+            'icon',
             'name',
             'link',
-            'sortorder',
             'action',
         ];
 
@@ -79,8 +81,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
             return get_string('heading:table_' . $val, 'block_fastnav');
         }, $columns));
 
-        $table->sortable(true, 'sortorder', SORT_ASC);
-        $table->no_sorting('action');
+        $table->sortable(false, 'sortorder', SORT_ASC);
         $table->collapsible(false);
 
         $table->out(100, true);
@@ -102,6 +103,20 @@ class block_fastnav_renderer extends plugin_renderer_base {
         return $this->render_from_template('block_fastnav/edit_management', [
             'link' => (new moodle_url('/blocks/fastnav/view/edit.php', array_merge($params, ['action' => 'edit'])))->out(false),
         ]);
+    }
+
+    /**
+     * @param context_block $context
+     *
+     * @return string
+     * @throws moodle_exception
+     */
+    public function get_block_item_list(context_block $context) : string {
+
+        $output = new output_items($context);
+
+        return $this->render_from_template('block_fastnav/block_item_list',
+            $output->export_for_template($this));
     }
 
 }

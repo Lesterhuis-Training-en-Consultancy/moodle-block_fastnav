@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Language file NL
+ * Language file EN
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -34,12 +34,18 @@ $string['privacy:metadata'] = 'The block_fastnav doesn\'t store any data.';
 $string['btn:edit'] = 'Edit';
 $string['btn:add'] = 'Add';
 $string['btn:update'] = 'Update';
+$string['btn:confirm'] = 'Yes';
+$string['btn:cancel'] = 'Cancel';
+
+// Javascript.
+$string['js:confirm_delete_title'] = 'Delete item';
+$string['js:confirm_delete_message'] = 'Are you sure you want to delete this item?';
 
 // Headings.
 $string['heading:overview'] = 'Overview';
 
 // Table.
-$string['heading:table_id'] = 'ID';
+$string['heading:table_icon'] = 'Icon';
 $string['heading:table_name'] = 'Name';
 $string['heading:table_link'] = 'Link';
 $string['heading:table_sortorder'] = 'Sort';

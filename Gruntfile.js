@@ -32,7 +32,7 @@ module.exports = function (grunt) {
         uglify: {
             amd: {
                 files: {
-                    "amd/build/fastnav.min.js": ["amd/src/fastnav.js"],
+                    "amd/build/sidebar.min.js": ["amd/src/sidebar.js"],
                 },
                 options: {report: 'none'}
             }

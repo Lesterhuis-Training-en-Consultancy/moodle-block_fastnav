@@ -25,23 +25,19 @@
  **/
 
 /**
- * Form for editing HTML block instances.
+ * @param       $course
+ * @param       $birecord_or_cm
+ * @param       $context
+ * @param       $filearea
+ * @param       $args
+ * @param       $forcedownload
+ * @param array $options
  *
- * @param stdClass $course         course object
- * @param stdClass $birecord_or_cm block instance record
- * @param stdClass $context        context object
- * @param string   $filearea       file area
- * @param array    $args           extra arguments
- * @param bool     $forcedownload  whether or not force download
- * @param array    $options        additional options affecting the file serving
- *
- * @return void
  * @throws coding_exception
  * @throws moodle_exception
  * @throws require_login_exception
- * @todo      MDL-36050 improve capability check on stick blocks, so we can check user capability before sending images.
  */
-function block_fastnav_pluginfile($course, $birecord_or_cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+function block_fastnav_pluginfile($course, $birecord_or_cm, $context, $filearea, $args, $forcedownload, array $options = []) {
     global $CFG, $USER;
 
     if ($context->contextlevel != CONTEXT_BLOCK) {
@@ -68,9 +64,8 @@ function block_fastnav_pluginfile($course, $birecord_or_cm, $context, $filearea,
         // At this point there is no way to check SYSTEM context, so ignoring it.
     }
 
-
     $fs = get_file_storage();
-    $itemid = (int) array_shift($args);
+    $itemid = (int)array_shift($args);
 
     $filename = array_pop($args);
 
@@ -93,28 +88,4 @@ function block_fastnav_pluginfile($course, $birecord_or_cm, $context, $filearea,
     //       do not lower it because the files are dispalyed very often.
     \core\session\manager::write_close();
     send_stored_file($file, null, 0, $forcedownload, $options);
-}
-
-/**
- * Given an array with a file path, it returns the itemid and the filepath for the defined filearea.
- *
- * @param  string $filearea The filearea.
- * @param  array  $args The path (the part after the filearea and before the filename).
- * @return array The itemid and the filepath inside the $args path, for the defined filearea.
- */
-function block_fastnav_get_path_from_pluginfile(string $filearea, array $args) : array {
-    // This block never has an itemid (the number represents the revision but it's not stored in database).
-    array_shift($args);
-
-    // Get the filepath.
-    if (empty($args)) {
-        $filepath = '/';
-    } else {
-        $filepath = '/' . implode('/', $args) . '/';
-    }
-
-    return [
-        'itemid' => 0,
-        'filepath' => $filepath,
-    ];
 }

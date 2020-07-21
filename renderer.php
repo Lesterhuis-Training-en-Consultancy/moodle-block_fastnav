@@ -81,7 +81,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
             return get_string('heading:table_' . $val, 'block_fastnav');
         }, $columns));
 
-        $table->sortable(false, 'sortorder', SORT_ASC);
+        $table->sortable(false, SORT_ASC);
         $table->collapsible(false);
 
         $table->out(100, true);
@@ -114,9 +114,13 @@ class block_fastnav_renderer extends plugin_renderer_base {
     public function get_block_item_list(context_block $context) : string {
 
         $output = new output_items($context);
+        $templatedata = $output->export_for_template($this);
 
-        return $this->render_from_template('block_fastnav/block_item_list',
-            $output->export_for_template($this));
+        if (empty($templatedata->items)) {
+            return '';
+        }
+
+        return $this->render_from_template('block_fastnav/block_item_list', $templatedata);
     }
 
 }

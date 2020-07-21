@@ -46,6 +46,7 @@ defined('MOODLE_INTERNAL') || die;
  */
 class item {
 
+    // @TODO use \core\persistent; we could convert to this.
     use database_model;
 
     /**
@@ -187,7 +188,7 @@ class item {
         // @TODO caching layer.
         $items = [];
 
-        $rs = $DB->get_recordset(self::$table, $conditions);
+        $rs = $DB->get_recordset(self::$table, $conditions , 'sortorder ASC');
         foreach ($rs as $item) {
             // Mapping.
             $items[$item->id] = (new self())->set_record($item);

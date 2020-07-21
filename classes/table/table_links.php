@@ -68,6 +68,14 @@ class table_links extends table_sql {
         $this->countparams = $this->sql->params;
     }
 
+    /**
+     * Always ordered by sortorder
+     *
+     * @return SQL fragment that can be used in an ORDER BY clause.
+     */
+    public function get_sql_sort() : string {
+        return 'sortorder ASC';
+    }
 
     /**
      * Take the data returned from the db_query and go through all the rows
@@ -116,7 +124,7 @@ class table_links extends table_sql {
     }
 
     /**
-     * @param stdClass $item
+     * @param item $item
      *
      * @return string
      * @throws coding_exception

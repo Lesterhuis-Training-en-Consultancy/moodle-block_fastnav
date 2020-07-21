@@ -10,5 +10,7 @@
 }
 
 .block-fastnav-icon{
-    max-width:100px;
+    max-width:75px;
+    min-width:75px;
 }
+/* TODO media rules for smaller screens */

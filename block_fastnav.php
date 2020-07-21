@@ -119,7 +119,14 @@ class block_fastnav extends block_base {
             $this->content->text .= $renderer->get_management_buttons($this);
         }
 
-        $this->content->text .= $renderer->get_block_item_list($this->context);
+        $menuitems = $renderer->get_block_item_list($this->context);
+
+        if(!empty($menuitems)){
+            $this->content->text .= $menuitems;
+            $PAGE->requires->js_call_amd('block_fastnav/sidebar', 'init', [[
+                'contextid' => $this->context->id,
+            ]]);
+        }
 
         return $this->content;
     }

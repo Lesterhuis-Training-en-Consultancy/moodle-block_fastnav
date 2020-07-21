@@ -87,7 +87,7 @@ class block_fastnav extends block_base {
      *
      * @return boolean
      */
-    public function instance_allow_multiple() : bool{
+    public function instance_allow_multiple() : bool {
         return false;
     }
 
@@ -100,7 +100,7 @@ class block_fastnav extends block_base {
      * @throws coding_exception
      */
     public function get_content() {
-        global $CFG , $PAGE;
+        global $CFG, $PAGE;
 
         require_once($CFG->libdir . '/filelib.php');
 
@@ -112,20 +112,23 @@ class block_fastnav extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        /** @var block_fastnav_renderer $renderer **/
+        /** @var block_fastnav_renderer $renderer * */
         $renderer = $PAGE->get_renderer('block_fastnav');
 
-        if(has_capability('block/fastnav:management', $this->context)){
+        if (has_capability('block/fastnav:management', $this->context)) {
             $this->content->text .= $renderer->get_management_buttons($this);
         }
 
         $menuitems = $renderer->get_block_item_list($this->context);
 
-        if(!empty($menuitems)){
+        if (!empty($menuitems)) {
             $this->content->text .= $menuitems;
-            $PAGE->requires->js_call_amd('block_fastnav/sidebar', 'init', [[
-                'contextid' => $this->context->id,
-            ]]);
+            $PAGE->requires->js_call_amd('block_fastnav/sidebar', 'init', [
+                [
+                    'instanceid' => $this->context->instanceid,
+                    'open' => get_user_preferences('block_fastnav_open'),
+                ],
+            ]);
         }
 
         return $this->content;

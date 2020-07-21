@@ -32,15 +32,21 @@
         ]
     }
 }}
-<ul class="block-fastnav-items">
-    {{#items}}
-        <li>
-            <a href="{{link}}" rel="noreferrer" title="{{name}}">
-                {{{icon}}}
-                <span class="block-fastnav-name">
-                    {{name}}
-                </span>
-            </a>
-        </li>
-    {{/items}}
-</ul>
+<section>
+    <div class="block-fastnav-opener btn btn-light">
+        <i class="icon fa fa-arrow-left"></i>
+    </div>
+    <ul class="block-fastnav-items">
+        {{#items}}
+            <li>
+                <a href="{{link}}" rel="noreferrer" title="{{name}}">
+                    <figure>{{{icon}}}
+                        <span class="block-fastnav-name">
+                            {{name}}
+                        </span>
+                    </figure>
+                </a>
+            </li>
+        {{/items}}
+    </ul>
+</section>

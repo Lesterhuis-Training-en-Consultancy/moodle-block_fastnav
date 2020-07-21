@@ -1,16 +1,133 @@
-.block_fastnav ul.block-fastnav-items{
-    list-style:none;
+/* General */
+.block-fastnav-icon {
+    max-width: 50px;
+    min-width: 50px;
+}
+
+/* CSS hover effect */
+.block-fastnav-items figure {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.block-fastnav-items figure:hover + span {
+    bottom: -36px;
+    opacity: 1;
+}
+
+.block-fastnav-items figure {
+    position: relative;
+}
+
+.block-fastnav-items figure::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    display: block;
+    content: '';
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, .2);
+    border-radius: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.block-fastnav-items figure:hover::before {
+    -webkit-animation: flashing .75s;
+    animation: flashing .75s;
+}
+
+@-webkit-keyframes flashing {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        height: 200%;
+        opacity: 0;
+    }
+}
+
+@keyframes flashing {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        height: 200%;
+        opacity: 0;
+    }
+}
+
+/* End general */
+
+/* Block only */
+div.block-fastnav-opener {
+    display: none;
+}
+
+div.block-fastnav-opener .icon{
+    margin:8px 0 0 -8px;
+}
+
+.block_fastnav ul.block-fastnav-items {
+    list-style: none;
     margin: 0;
     padding: 0
 }
 
-.block_fastnav ul.block-fastnav-items li{
-    padding:10px 0;
+.block_fastnav ul.block-fastnav-items li {
+    padding: 10px 0;
     margin: 0;
 }
 
-.block-fastnav-icon{
-    max-width:75px;
-    min-width:75px;
+/* End block only */
+
+/* Sidebar */
+nav.block-fastnav-sidebar {
+    z-index: 9999;
+    position: fixed;
+    right: 0;
+    top: 30%;
+    width: 0;
+    background: #fff;
 }
+
+nav.block-fastnav-sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 20px 0 10px;
+    border: 2px solid #000;
+}
+
+nav.block-fastnav-sidebar li {
+    padding: 10px 0;
+    margin: 0;
+}
+
+nav.block-fastnav-sidebar li span {
+    display: none
+}
+
+nav.block-fastnav-sidebar .block-fastnav-opener {
+    border:1px solid #000;
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 50px;
+    margin: 10px 0 0 -25px;
+    cursor: pointer
+}
+
 /* TODO media rules for smaller screens */

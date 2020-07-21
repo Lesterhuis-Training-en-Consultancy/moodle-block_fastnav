@@ -23,14 +23,14 @@
  * @author    Luuk Verhoeven
  **/
 define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates', 'core/config'],
-    function($, Ajax, Log, Notification, Templates, config) {
+    function($, Ajax, Log, Notification, Templates) {
         'use strict';
 
         var sidebar = {
 
             options: {
                 open: false,
-                instanceid : 0
+                instanceid: 0
             },
 
             /**
@@ -65,7 +65,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
                 Log.debug(this.options);
 
                 // Load template.
-                this.loadNavigation()
+                this.loadNavigation();
             },
 
             /**
@@ -78,13 +78,12 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
                         instanceid: this.options.instanceid,
                     }
                 }]);
-``
                 promises[0].done(function(response) {
-                    Templates.render('mod_threesixo/question_list', response)
+                    Templates.render('block_fastnav/block_item_list', response)
                         .done(function(html) {
-                            $('body').prepend(html)
-                            this.loadEvents();
-                        }) .fail(Notification.exception);
+                            $('body').prepend('<nav class="block-fastnav-sidebar">' + html + '</nav>');
+                            sidebar.loadEvents();
+                        }).fail(Notification.exception);
 
                 }).fail(Notification.exception);
             },
@@ -92,10 +91,53 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
             /**
              * Check for some DOM events.
              */
-            loadEvents : function() {
+            loadEvents: function() {
+                Log.debug('block_fastnav/sidebar: loadEvents()');
+                var $sidebar = $('.block-fastnav-sidebar');
+                $('body').on('click', '.block-fastnav-opener', function() {
 
+                    if ($sidebar.width() == 100) {
+                        $sidebar.animate({
+                            width: 0,
+                        }, 500, function() {
+                            Log.debug('block_fastnav/sidebar: Animation complete.');
+                            $sidebar.find('.fa').addClass('fa-arrow-left').removeClass('fa-arrow-right');
+                        });
+
+                        return;
+                    }
+
+                    $sidebar.animate({
+                        width: '100px',
+                    }, 500, function() {
+                        Log.debug('block_fastnav/sidebar: Animation complete.');
+                        $sidebar.find('.fa').removeClass('fa-arrow-left').addClass('fa-arrow-right');
+                    });
+                });
+            },
+
+            /**
+             *
+             * @param {boolean} status
+             */
+            updateOpenPreference: function(status) {
+
+                // Update user preference
+                var promises = Ajax.call([{
+                    methodname: 'core_user_update_user_preferences',
+                    args: {
+                        preferences: [{
+                            type: 'block_fastnav_open',
+                            value: status
+                        }]
+                    }
+                }]);
+
+                promises[0].done(function() {
+
+                }).fail(Notification.exception);
             }
-        }
+        };
 
         return {
 
@@ -107,5 +149,5 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
                 sidebar.setOptions(params);
                 sidebar.start();
             }
-        }
+        };
     });

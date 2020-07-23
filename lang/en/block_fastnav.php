@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 $string['pluginname'] = 'Block Fast Navigation';
 $string['fastnav:addinstance'] = 'Add a new fast navigation block';
 $string['fastnav:myaddinstance'] = 'Add a new fast navigation block to Dashboard';
+$string['fastnav:management'] = 'Allow management of fast navigation';
 $string['privacy:metadata'] = 'The block_fastnav doesn\'t store any data.';
 
 // Buttons.

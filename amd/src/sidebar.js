@@ -38,7 +38,6 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
              * @param {object} options
              */
             setOptions: function(options) {
-                "use strict";
                 var key, vartype;
                 for (key in this.options) {
                     if (this.options.hasOwnProperty(key) && options.hasOwnProperty(key)) {
@@ -89,53 +88,75 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
             },
 
             /**
-             * Check for some DOM events.
+             * Open or close the fastnav sidebar
              */
-            loadEvents: function() {
-                Log.debug('block_fastnav/sidebar: loadEvents()');
+            openOrClose: function() {
+
                 var $sidebar = $('.block-fastnav-sidebar');
-                $('body').on('click', '.block-fastnav-opener', function() {
-
-                    if ($sidebar.width() == 100) {
-                        $sidebar.animate({
-                            width: 0,
-                        }, 500, function() {
-                            Log.debug('block_fastnav/sidebar: Animation complete.');
-                            $sidebar.find('.fa').addClass('fa-arrow-left').removeClass('fa-arrow-right');
-                        });
-
-                        return;
-                    }
-
+                if ($sidebar.width() !== 100) {
                     $sidebar.animate({
                         width: '100px',
-                    }, 500, function() {
+                    }, 300, function() {
                         Log.debug('block_fastnav/sidebar: Animation complete.');
-                        $sidebar.find('.fa').removeClass('fa-arrow-left').addClass('fa-arrow-right');
+                        $sidebar.find('.fa-arrow-left').removeClass('fa-arrow-left').addClass('fa-arrow-right');
                     });
+                    return;
+                }
+
+                $sidebar.animate({
+                    width: 0,
+                }, 300, function() {
+                    Log.debug('block_fastnav/sidebar: Animation complete.');
+                    $sidebar.find('.fa-arrow-right').addClass('fa-arrow-left').removeClass('fa-arrow-right');
                 });
             },
 
             /**
+             * Check for some DOM events.
+             */
+            loadEvents: function() {
+                Log.debug('block_fastnav/sidebar: loadEvents()');
+
+                if ($('.block-fastnav-lock.active').length) {
+                    sidebar.openOrClose();
+                }
+
+                $('body').on('mouseover', '.block-fastnav-opener', function() {
+                    sidebar.openOrClose();
+                });
+
+                $('body').on('click', '.block-fastnav-lock', function() {
+
+                    // Check current status.
+                    var $el = $(this);
+                    var locked = $el.hasClass('active');
+                    Log.debug('block_fastnav/sidebar: locked ', locked);
+
+                    if (locked) {
+                        $el.removeClass('active');
+                        sidebar.updateOpenPreference('0');
+                        sidebar.openOrClose();
+                        return;
+                    }
+
+                    $el.addClass('active');
+                    sidebar.updateOpenPreference('1');
+                });
+
+                // Reload bootstrap tooltip.
+                try {
+                    $('.block-fastnav-sidebar a').tooltip();
+                } catch (e) {
+                    Log.debug('block_fastnav/sidebar: bootstrap tooltip not available ');
+                }
+            },
+
+            /**
              *
-             * @param {boolean} status
+             * @param {string} status
              */
             updateOpenPreference: function(status) {
-
-                // Update user preference
-                var promises = Ajax.call([{
-                    methodname: 'core_user_update_user_preferences',
-                    args: {
-                        preferences: [{
-                            type: 'block_fastnav_open',
-                            value: status
-                        }]
-                    }
-                }]);
-
-                promises[0].done(function() {
-
-                }).fail(Notification.exception);
+                M.util.set_user_preference('block_fastnav_open', status);
             }
         };
 

@@ -100,7 +100,7 @@ class block_fastnav extends block_base {
      * @throws coding_exception
      */
     public function get_content() {
-        global $CFG, $PAGE;
+        global $CFG, $PAGE, $USER;
 
         require_once($CFG->libdir . '/filelib.php');
 
@@ -114,6 +114,9 @@ class block_fastnav extends block_base {
 
         /** @var block_fastnav_renderer $renderer * */
         $renderer = $PAGE->get_renderer('block_fastnav');
+
+        // Allow ajax call.
+        $USER->ajax_updatable_user_prefs['block_fastnav_open'] = true;
 
         if (has_capability('block/fastnav:management', $this->context)) {
             $this->content->text .= $renderer->get_management_buttons($this);

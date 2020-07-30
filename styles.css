@@ -4,6 +4,11 @@
     min-width: 50px;
 }
 
+/* Fix tooltips */
+.tooltip{
+    z-index:99999 !important;
+}
+
 /* CSS hover effect */
 .block-fastnav-items figure {
     margin: 0;
@@ -77,8 +82,8 @@ div.block-fastnav-opener {
     display: none;
 }
 
-div.block-fastnav-opener .icon{
-    margin:8px 0 0 -8px;
+div.block-fastnav-opener .icon {
+    margin: 8px 0 0 -8px;
 }
 
 .block_fastnav ul.block-fastnav-items {
@@ -92,9 +97,26 @@ div.block-fastnav-opener .icon{
     margin: 0;
 }
 
+.block_fastnav .block-fastnav-lock {
+    display: none;
+}
+
 /* End block only */
 
 /* Sidebar */
+nav.block-fastnav-sidebar .block-fastnav-lock {
+    display: block;
+    color: #b9b9b9;
+    cursor: pointer;
+    padding: 5px;
+    background:#000;
+}
+
+nav.block-fastnav-sidebar .block-fastnav-lock.active,
+nav.block-fastnav-sidebar .block-fastnav-lock:hover {
+    color: #ffed00;
+}
+
 nav.block-fastnav-sidebar {
     z-index: 9999;
     position: fixed;
@@ -121,7 +143,7 @@ nav.block-fastnav-sidebar li span {
 }
 
 nav.block-fastnav-sidebar .block-fastnav-opener {
-    border:1px solid #000;
+    border: 1px solid #000;
     display: block;
     position: absolute;
     width: 20px;

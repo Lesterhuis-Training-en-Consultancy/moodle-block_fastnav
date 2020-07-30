@@ -23,6 +23,7 @@
 
     Example context (json):
     {
+        "open" : true,
         "items": [
             {
                 "name": "Name",
@@ -39,7 +40,7 @@
     <ul class="block-fastnav-items">
         {{#items}}
             <li>
-                <a href="{{link}}" rel="noreferrer" title="{{name}}">
+                <a href="{{link}}" rel="noreferrer" title="{{name}}" data-placement="left" title="{{name}}">
                     <figure>{{{icon}}}
                         <span class="block-fastnav-name">
                             {{name}}
@@ -50,3 +51,6 @@
         {{/items}}
     </ul>
 </section>
+<div class="block-fastnav-lock {{#open}}active{{/open}}" >
+    <i class="fa fa-lock"></i>
+</div>

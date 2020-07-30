@@ -46,7 +46,6 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * @throws moodle_exception
      */
     public function get_management_buttons(\block_fastnav $block) : string {
-
         return html_writer::link(new moodle_url('/blocks/fastnav/view/edit.php', [
             'instanceid' => $block->instance->id,
             'courseid' => $block->page->course->id,
@@ -58,6 +57,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
 
     /**
      * @return string
+     * @throws coding_exception
      */
     public function get_edit_link_table() : string {
         global $PAGE;

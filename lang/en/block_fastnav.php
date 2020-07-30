@@ -56,3 +56,7 @@ $string['heading:table_action'] = 'Action';
 $string['form:name'] = 'Name';
 $string['form:link'] = 'Link';
 $string['form:link_icon'] = 'Icon';
+$string['form:show_block_and_sidebar'] = 'Show block and sidebar on activity pages';
+$string['form:show_sidebar'] = 'Show sidebar only on activity pages';
+$string['form:show_block'] = 'Show block only on activity pages';
+$string['form:display_modus'] = 'Display modus';

@@ -78,6 +78,12 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
                     }
                 }]);
                 promises[0].done(function(response) {
+
+                    if(response.items.length === 0){
+                        Log.debug('block_fastnav/sidebar: no items.');
+                        return;
+                    }
+
                     Templates.render('block_fastnav/block_item_list', response)
                         .done(function(html) {
                             $('body').prepend('<nav class="block-fastnav-sidebar">' + html + '</nav>');
@@ -93,9 +99,9 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
             openOrClose: function() {
 
                 var $sidebar = $('.block-fastnav-sidebar');
-                if ($sidebar.width() !== 100) {
+                if ($sidebar.width() !== 80) {
                     $sidebar.animate({
-                        width: '100px',
+                        width: '80px',
                     }, 300, function() {
                         Log.debug('block_fastnav/sidebar: Animation complete.');
                         $sidebar.find('.fa-arrow-left').removeClass('fa-arrow-left').addClass('fa-arrow-right');

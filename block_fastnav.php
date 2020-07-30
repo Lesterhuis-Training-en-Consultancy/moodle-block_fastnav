@@ -23,6 +23,9 @@
  * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
+
+use block_fastnav\helper;
+
 defined('MOODLE_INTERNAL') || die;
 
 /**
@@ -73,22 +76,12 @@ class block_fastnav extends block_base {
      */
     public function specialization() : void {
         if (isset($this->config->title)) {
-            $this->title = $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+            $this->title = format_string($this->config->title, true, ['context' => $this->context]);
 
             return;
         }
 
         $this->title = get_string('pluginname', 'block_fastnav');
-    }
-
-    /**
-     * Are you going to allow multiple instances of each block?
-     * If yes, then it is assumed that the block WILL USE per-instance configuration
-     *
-     * @return boolean
-     */
-    public function instance_allow_multiple() : bool {
-        return false;
     }
 
     /**
@@ -98,6 +91,7 @@ class block_fastnav extends block_base {
      *
      * @return stdObject
      * @throws coding_exception
+     * @throws moodle_exception
      */
     public function get_content() {
         global $CFG, $PAGE, $USER;
@@ -118,14 +112,28 @@ class block_fastnav extends block_base {
         // Allow ajax call.
         $USER->ajax_updatable_user_prefs['block_fastnav_open'] = true;
 
-        if (has_capability('block/fastnav:management', $this->context)) {
+        // Not visible on course view page.
+        if ($this->page->user_is_editing() === false
+            && $this->page->url->get_path() === '/course/view.php') {
+            return $this->content;
+        }
+
+        if (has_capability('block/fastnav:management', $this->context)
+            && $this->page->user_is_editing()) {
             $this->content->text .= $renderer->get_management_buttons($this);
         }
 
         $menuitems = $renderer->get_block_item_list($this->context);
 
-        if (!empty($menuitems)) {
+        if (empty($menuitems)) {
+            return $this->content;
+        }
+
+        if ($this->can_display_block()) {
             $this->content->text .= $menuitems;
+        }
+
+        if ($this->can_display_sidebar()) {
             $PAGE->requires->js_call_amd('block_fastnav/sidebar', 'init', [
                 [
                     'instanceid' => $this->context->instanceid,
@@ -144,22 +152,49 @@ class block_fastnav extends block_base {
      * @param bool $nolongerused
      */
     public function instance_config_save($data, $nolongerused = false) : void {
-
         $config = clone($data);
-        // Move embedded files into a proper filearea and adjust HTML links to match
-//        $config->text = file_save_draft_area_files($data->text['itemid'], $this->context->id,
-//            'block_fastnav', 'content', 0, ['subdirs' => true], $data->text['text']);
-//        $config->format = $data->text['format'];
-
         parent::instance_config_save($config, $nolongerused);
     }
 
     /**
      * @return bool
+     * @throws dml_exception
      */
     public function instance_delete() : bool {
+        global $DB;
+
         $fs = get_file_storage();
         $fs->delete_area_files($this->context->id, 'block_fastnav');
+        $DB->delete_records('block_fastnav', ['contextid' => $this->context->id]);
+
+        return true;
+    }
+
+    /**
+     * Do any additional initialization you may need at the time a new block instance is created
+     *
+     * @return boolean
+     * @throws dml_exception
+     */
+    public function instance_create() : bool {
+        global $DB, $COURSE;
+
+        if (!empty($COURSE->id) && $COURSE->id > 1) {
+            // Update default to course-*.
+            $DB->update_record('block_instances', (object)[
+                'id' => $this->instance->id,
+                'pagetypepattern' => '*', // Any page.
+                'showinsubcontexts' => 1,
+            ]);
+        }
+
+        // Make visible on all pages.
+        $config = new stdClass();
+        $config->text = '';
+        $config->format = FORMAT_HTML;
+        $config->display_modus = helper::SHOW_BLOCK_AND_SIDEBAR;
+
+        parent::instance_config_save($config);
 
         return true;
     }
@@ -171,26 +206,47 @@ class block_fastnav extends block_base {
      *
      * @return boolean
      */
-    public function instance_copy($fromid) : bool {
-        $fromcontext = context_block::instance($fromid);
-        $fs = get_file_storage();
-        // This extra check if file area is empty adds one query if it is not empty but saves several if it is.
-        if (!$fs->is_area_empty($fromcontext->id, 'block_fastnav', 'content', 0, false)) {
-            $draftitemid = 0;
-            file_prepare_draft_area($draftitemid, $fromcontext->id, 'block_fastnav', 'content', 0, ['subdirs' => true]);
-            file_save_draft_area_files($draftitemid, $this->context->id, 'block_fastnav', 'content', 0, ['subdirs' => true]);
+//    public function instance_copy($fromid) : bool {
+//        $fromcontext = context_block::instance($fromid);
+////        $fs = get_file_storage();
+////        // This extra check if file area is empty adds one query if it is not empty but saves several if it is.
+////        if (!$fs->is_area_empty($fromcontext->id, 'block_fastnav', 'content', 0, false)) {
+////            $draftitemid = 0;
+////            file_prepare_draft_area($draftitemid, $fromcontext->id, 'block_fastnav', 'content', 0, ['subdirs' => true]);
+////            file_save_draft_area_files($draftitemid, $this->context->id, 'block_fastnav', 'content', 0, ['subdirs' => true]);
+////        }
+//
+//        return true;
+//    }
+
+    /**
+     * @return bool
+     */
+    private function can_display_sidebar() : bool {
+        $display_modus = (int)$this->config->display_modus;
+
+        if ($display_modus === helper::SHOW_BLOCK_ONLY) {
+            return false;
         }
 
         return true;
     }
 
     /**
-     * The block should only be dockable when the title of the block is not empty
-     * and when parent allows docking.
-     *
      * @return bool
      */
-    public function instance_can_be_docked() : bool {
-        return (!empty($this->config->title) && parent::instance_can_be_docked());
+    private function can_display_block() : bool {
+        $display_modus = (int)$this->config->display_modus;
+
+        if ($display_modus === helper::SHOW_BLOCK_ONLY) {
+            return true;
+        }
+
+        if ($display_modus === helper::SHOW_BLOCK_AND_SIDEBAR) {
+            return true;
+        }
+
+        return false;
     }
+
 }

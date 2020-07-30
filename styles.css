@@ -5,8 +5,8 @@
 }
 
 /* Fix tooltips */
-.tooltip{
-    z-index:99999 !important;
+.tooltip {
+    z-index: 99999 !important;
 }
 
 /* CSS hover effect */
@@ -97,6 +97,11 @@ div.block-fastnav-opener .icon {
     margin: 0;
 }
 
+.block_fastnav ul.block-fastnav-items li:first-child {
+    border-top: 1px solid #ced4da;
+    margin-top: 10px;
+}
+
 .block_fastnav .block-fastnav-lock {
     display: none;
 }
@@ -108,8 +113,8 @@ nav.block-fastnav-sidebar .block-fastnav-lock {
     display: block;
     color: #b9b9b9;
     cursor: pointer;
-    padding: 5px;
-    background:#000;
+    padding: 2px 15px;
+    background: #000;
 }
 
 nav.block-fastnav-sidebar .block-fastnav-lock.active,
@@ -129,7 +134,7 @@ nav.block-fastnav-sidebar {
 nav.block-fastnav-sidebar ul {
     list-style: none;
     margin: 0;
-    padding: 0 20px 0 10px;
+    padding: 0 0 0 10px;
     border: 2px solid #000;
 }
 
@@ -143,7 +148,7 @@ nav.block-fastnav-sidebar li span {
 }
 
 nav.block-fastnav-sidebar .block-fastnav-opener {
-    border: 1px solid #000;
+    border: 2px solid #000;
     display: block;
     position: absolute;
     width: 20px;

@@ -20,9 +20,13 @@ Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://
 ## List of features
 - GDPR provider
 - Mustache templates
+- AMD javascript
+- Save open/closed preference
+- Management for link items
+- Tooltips
 
 ## Installation
-1.  Copy this plugin to the `block\fastnav` folder on the server
+1.  Copy this plugin to the `blocks\fastnav` folder on the server
 2.  Login as administrator
 3.  Go to Site Administrator > Notification
 4.  Install the plugin

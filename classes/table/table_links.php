@@ -85,7 +85,7 @@ class table_links extends table_sql {
      *
      * After calling this function, don't forget to call close_recordset.
      */
-    public function build_table() {
+    public function build_table() : void {
 
         if ($this->rawdata instanceof Traversable && !$this->rawdata->valid()) {
             return;

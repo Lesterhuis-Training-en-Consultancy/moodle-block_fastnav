@@ -26,7 +26,6 @@
 
 namespace block_fastnav;
 
-use ArrayIterator;
 use external_api;
 use external_function_parameters;
 use external_multiple_structure;
@@ -39,7 +38,7 @@ defined('MOODLE_INTERNAL') || die;
 /**
  * Class external.
  *
- * The external API for the 360-degree feedback module.
+ * The external API
  *
  * @package   moodle-block_fastnav
  * @copyright 21/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
@@ -51,6 +50,7 @@ class external extends external_api {
      * @param int $instanceid
      *
      * @return array
+     * @throws \coding_exception
      * @throws \dml_exception
      * @throws \invalid_parameter_exception
      */

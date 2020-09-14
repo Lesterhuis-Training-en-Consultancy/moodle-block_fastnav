@@ -27,5 +27,5 @@
 $plugin->version = 2020072102;
 $plugin->requires = 2020050600;
 $plugin->component = 'block_fastnav';
-$plugin->maturity = MATURITY_BETA;
+$plugin->maturity = MATURITY_STABLE;
 $plugin->release = '3.9.0';

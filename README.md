@@ -1,6 +1,6 @@
 ## a Moodle block for better course navigation
 
-In brief, the MFreak mod `fastnav` gives users the ability to navigate more easily inside a course.
+In brief, the MFreak block `fastnav` gives users the ability to navigate more easily inside a course.
  
 Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://ltnc.nl/)) for develop & design, useful input, bug reports and beta testing
 

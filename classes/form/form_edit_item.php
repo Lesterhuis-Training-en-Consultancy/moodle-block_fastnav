@@ -19,26 +19,26 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
 
 namespace block_fastnav\form;
+defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
 use block_fastnav\helper;
 
 require_once($CFG->libdir . '/formslib.php');
-defined('MOODLE_INTERNAL') || die;
 
 /**
  * Class form_edit_item
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */

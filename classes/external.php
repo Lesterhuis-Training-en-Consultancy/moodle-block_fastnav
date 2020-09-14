@@ -19,12 +19,13 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 21/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
 
 namespace block_fastnav;
+defined('MOODLE_INTERNAL') || die;
 
 use external_api;
 use external_function_parameters;
@@ -33,20 +34,20 @@ use external_single_structure;
 use external_value;
 use external_warnings;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Class external.
  *
  * The external API
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 21/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
 class external extends external_api {
 
     /**
+     * Get items
+     *
      * @param int $instanceid
      *
      * @return array
@@ -76,6 +77,8 @@ class external extends external_api {
     }
 
     /**
+     * Get item parameters
+     *
      * @return external_function_parameters
      */
     public static function get_items_parameters() : external_function_parameters {
@@ -87,6 +90,8 @@ class external extends external_api {
     }
 
     /**
+     * Get item returns structure
+     *
      * @return external_single_structure
      */
     public static function get_items_returns() : external_single_structure {

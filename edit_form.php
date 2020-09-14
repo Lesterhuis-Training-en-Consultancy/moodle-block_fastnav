@@ -19,7 +19,7 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 30/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die;
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 30/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
@@ -54,9 +54,5 @@ class block_fastnav_edit_form extends block_edit_form {
 
         $mform->addElement('select', 'config_display_modus', get_string('form:display_modus', 'block_fastnav'), $options);
         $mform->setType('config_display_modus', PARAM_INT);
-    }
-
-    public function set_data($defaults) {
-        parent::set_data($defaults);
     }
 }

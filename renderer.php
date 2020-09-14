@@ -19,7 +19,7 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
@@ -32,7 +32,7 @@ require_once($CFG->libdir . '/tablelib.php');
 /**
  * Class block_fastnav_renderer
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
@@ -60,13 +60,12 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * @throws coding_exception
      */
     public function get_edit_link_table() : string {
-        global $PAGE;
 
-        $table = new block_fastnav\table\table_links(__CLASS__, $PAGE->context->instanceid);
+        $table = new block_fastnav\table\table_links(__CLASS__, $this->page->context->instanceid);
         $table->set_attribute('cellspacing', '0');
         $table->set_attribute('class', 'generaltable generalbox reporttable');
         $table->initialbars(true); // always initial bars
-        $table->define_baseurl($PAGE->url);
+        $table->define_baseurl($this->page->url);
 
         // Set columns.
         $columns = [
@@ -97,8 +96,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * @throws moodle_exception
      */
     public function get_edit_button() : string {
-        global $PAGE;
-        $params = $PAGE->url->params();
+        $params = $this->page->url->params();
 
         return $this->render_from_template('block_fastnav/edit_management', [
             'link' => (new moodle_url('/blocks/fastnav/view/edit.php', array_merge($params, ['action' => 'edit'])))->out(false),

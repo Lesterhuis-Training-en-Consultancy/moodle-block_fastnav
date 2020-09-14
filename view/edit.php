@@ -19,7 +19,7 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 17/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
@@ -72,23 +72,23 @@ switch ($action) {
         break;
 
     case 'edit':
-        $form = new \block_fastnav\form\form_edit_item($PAGE->url , [
+        $form = new \block_fastnav\form\form_edit_item($PAGE->url, [
             'item' => $item,
-            'blockcontext' => $blockcontext
+            'blockcontext' => $blockcontext,
         ]);
 
-        if($item->exists()){
+        if ($item->exists()) {
             $form->set_data($item->get_data());
         }
 
-        if($form->is_cancelled()){
+        if ($form->is_cancelled()) {
             redirect($baseurl);
         }
 
         if (($formdata = $form->get_data()) != false) {
 
             $formdata->id = $item->get_id();
-            $item->save($formdata , $blockcontext);
+            $item->save($formdata, $blockcontext);
 
             redirect($baseurl);
         }
@@ -98,7 +98,6 @@ switch ($action) {
         echo $OUTPUT->footer();
 
         break;
-
 
     case 'delete':
 

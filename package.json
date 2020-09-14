@@ -1,5 +1,5 @@
 {
-  "name": "moodle-block_fastnav",
+  "name": "block_fastnav",
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-contrib-less": "^2.0.0",

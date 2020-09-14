@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die;
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
@@ -49,6 +49,7 @@ trait database_model {
      */
     public function set_record(stdClass $record) : self {
         $this->record = $record;
+
         return $this;
     }
 
@@ -182,6 +183,7 @@ trait database_model {
         global $DB;
 
         $DB->delete_records(self::$table, ['id' => $this->get_id()]);
+
         return true;
     }
 
@@ -232,7 +234,7 @@ trait database_model {
      *
      * @return mixed
      */
-    public function __get(string $name){
+    public function __get(string $name) {
         return $this->record->$name ?? null;
     }
 

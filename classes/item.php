@@ -19,7 +19,7 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
@@ -40,13 +40,12 @@ defined('MOODLE_INTERNAL') || die;
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
 class item {
 
-    // @TODO use \core\persistent; we could convert to this.
     use database_model;
 
     /**
@@ -185,7 +184,6 @@ class item {
     public static function get_items(array $conditions) : array {
         global $DB;
 
-        // @TODO caching layer.
         $items = [];
 
         $rs = $DB->get_recordset(self::$table, $conditions , 'sortorder ASC');

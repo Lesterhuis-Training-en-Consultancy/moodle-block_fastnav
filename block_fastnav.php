@@ -19,7 +19,7 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die;
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   moodle-block_fastnav
+ * @package   block_fastnav
  * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
@@ -94,7 +94,7 @@ class block_fastnav extends block_base {
      * @throws moodle_exception
      */
     public function get_content() {
-        global $CFG, $PAGE, $USER;
+        global $CFG, $USER;
 
         require_once($CFG->libdir . '/filelib.php');
 
@@ -107,7 +107,7 @@ class block_fastnav extends block_base {
         $this->content->footer = '';
 
         /** @var block_fastnav_renderer $renderer * */
-        $renderer = $PAGE->get_renderer('block_fastnav');
+        $renderer = $this->page->get_renderer('block_fastnav');
 
         // Allow ajax call.
         $USER->ajax_updatable_user_prefs['block_fastnav_open'] = true;
@@ -134,7 +134,7 @@ class block_fastnav extends block_base {
         }
 
         if ($this->can_display_sidebar()) {
-            $PAGE->requires->js_call_amd('block_fastnav/sidebar', 'init', [
+            $this->page->requires->js_call_amd('block_fastnav/sidebar', 'init', [
                 [
                     'instanceid' => $this->context->instanceid,
                     'open' => get_user_preferences('block_fastnav_open'),
@@ -203,9 +203,9 @@ class block_fastnav extends block_base {
      * @return bool
      */
     private function can_display_sidebar() : bool {
-        $display_modus = (int)$this->config->display_modus;
+        $displaymodus = (int)$this->config->display_modus;
 
-        if ($display_modus === helper::SHOW_BLOCK_ONLY) {
+        if ($displaymodus === helper::SHOW_BLOCK_ONLY) {
             return false;
         }
 

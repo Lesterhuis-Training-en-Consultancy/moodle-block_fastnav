@@ -39,6 +39,8 @@ require_once($CFG->libdir . '/tablelib.php');
 class block_fastnav_renderer extends plugin_renderer_base {
 
     /**
+     * get_management_buttons
+     *
      * @param block_fastnav $block
      *
      * @return string
@@ -56,6 +58,8 @@ class block_fastnav_renderer extends plugin_renderer_base {
     }
 
     /**
+     * get_edit_link_table
+     *
      * @return string
      * @throws coding_exception
      */
@@ -64,7 +68,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
         $table = new block_fastnav\table\table_links(__CLASS__, $this->page->context->instanceid);
         $table->set_attribute('cellspacing', '0');
         $table->set_attribute('class', 'generaltable generalbox reporttable');
-        $table->initialbars(true); // always initial bars
+        $table->initialbars(true);
         $table->define_baseurl($this->page->url);
 
         // Set columns.
@@ -104,6 +108,8 @@ class block_fastnav_renderer extends plugin_renderer_base {
     }
 
     /**
+     * get_block_item_list
+     *
      * @param context_block $context
      *
      * @return string

@@ -40,6 +40,7 @@ use external_warnings;
  * The external API
  *
  * @package   block_fastnav
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright 21/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */

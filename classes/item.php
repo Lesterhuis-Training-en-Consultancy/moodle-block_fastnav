@@ -90,8 +90,8 @@ class item {
     /**
      * Save item
      *
-     * @param stdClass $formdata
-     * @param          $context
+     * @param stdClass      $formdata
+     * @param context_block $context
      *
      * @return bool
      * @throws dml_exception
@@ -197,7 +197,7 @@ class item {
 
         $items = [];
 
-        $rs = $DB->get_recordset(self::$table, $conditions , 'sortorder ASC');
+        $rs = $DB->get_recordset(self::$table, $conditions, 'sortorder ASC');
         foreach ($rs as $item) {
             // Mapping.
             $items[$item->id] = (new self())->set_record($item);

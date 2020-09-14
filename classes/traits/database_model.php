@@ -13,7 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-namespace block_fastnav\traits;
 
 /**
  * Trait containing database model functions
@@ -25,13 +24,14 @@ namespace block_fastnav\traits;
  * @author    Luuk Verhoeven
  **/
 
+namespace block_fastnav\traits;
+defined('MOODLE_INTERNAL') || die;
+
 use coding_exception;
 use dml_exception;
 use ReflectionClass;
 use ReflectionException;
 use stdClass;
-
-defined('MOODLE_INTERNAL') || die;
 
 /**
  * Database model trait
@@ -76,9 +76,9 @@ trait database_model {
 
         if (property_exists($this->record, $name)) {
             return $this->record->$name;
-        } else {
-            debugging('Missing  ' . self::get_class() . '->record->' . $name);
         }
+
+        debugging('Missing  ' . self::get_class() . '->record->' . $name);
 
         return null;
     }

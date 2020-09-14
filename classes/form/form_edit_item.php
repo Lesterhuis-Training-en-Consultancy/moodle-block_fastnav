@@ -81,6 +81,8 @@ class form_edit_item extends \moodleform {
     }
 
     /**
+     * Form definition
+     *
      * @throws \coding_exception
      */
     protected function definition() : void {
@@ -104,6 +106,8 @@ class form_edit_item extends \moodleform {
     }
 
     /**
+     * After data
+     *
      * definition_after_data
      */
     public function definition_after_data() : void {

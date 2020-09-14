@@ -30,6 +30,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Privacy Subsystem for block_fastnav implementing null_provider.
  *
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @package   block_fastnav
  * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven

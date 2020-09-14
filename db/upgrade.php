@@ -26,6 +26,8 @@
 defined('MOODLE_INTERNAL') || die;
 
 /**
+ * Execute on plugin upgrade
+ *
  * @param $oldversion
  *
  * @return bool

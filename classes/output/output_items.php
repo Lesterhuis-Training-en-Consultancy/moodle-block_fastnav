@@ -60,6 +60,8 @@ class output_items implements renderable, templatable {
     }
 
     /**
+     * export_for_template
+     *
      * @param renderer_base $output
      *
      * @return array|stdClass

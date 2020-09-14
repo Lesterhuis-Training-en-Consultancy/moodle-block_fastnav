@@ -25,6 +25,7 @@
  **/
 
 namespace block_fastnav\table;
+defined('MOODLE_INTERNAL') || die();
 
 use block_fastnav\item;
 use coding_exception;
@@ -34,8 +35,6 @@ use moodle_url;
 use stdClass;
 use table_sql;
 use Traversable;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Class table_links
@@ -49,6 +48,8 @@ defined('MOODLE_INTERNAL') || die();
 class table_links extends table_sql {
 
     /**
+     * table_links constructor.
+     *
      * @param string $uniqueid
      * @param int    $blockinstanceid
      */
@@ -104,6 +105,8 @@ class table_links extends table_sql {
     }
 
     /**
+     * col_icon
+     *
      * @param item $item
      *
      * @return string
@@ -114,6 +117,8 @@ class table_links extends table_sql {
     }
 
     /**
+     * col_link
+     *
      * @param item $item
      *
      * @return string
@@ -124,6 +129,8 @@ class table_links extends table_sql {
     }
 
     /**
+     * col_action
+     *
      * @param item $item
      *
      * @return string

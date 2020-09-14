@@ -40,22 +40,16 @@ class helper {
 
     /**
      * Show block and sidebar on activity pages.
-     *
-     * @const  SHOW_BLOCK_AND_SIDEBAR
      */
     public const SHOW_BLOCK_AND_SIDEBAR = 0;
 
     /**
      * Show sidebar only on activity pages.
-     *
-     * @const  SHOW_SIDEBAR
      */
     public const SHOW_SIDEBAR = 1;
 
     /**
      * Show block only on activity pages.
-     *
-     * @const  SHOW_BLOCK
      */
     public const SHOW_BLOCK_ONLY = 2;
 

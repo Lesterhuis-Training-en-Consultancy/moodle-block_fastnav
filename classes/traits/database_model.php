@@ -15,6 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 namespace block_fastnav\traits;
 
+/**
+ * Trait containing database model functions
+ *
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * @package   block_fastnav
+ * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
+ * @author    Luuk Verhoeven
+ **/
+
 use coding_exception;
 use dml_exception;
 use ReflectionClass;
@@ -43,6 +53,8 @@ trait database_model {
     protected $record = false;
 
     /**
+     * Set record
+     *
      * @param $record
      *
      * @return $this
@@ -72,7 +84,7 @@ trait database_model {
     }
 
     /**
-     * Should always be available.
+     * Get record id
      *
      * @return int
      */

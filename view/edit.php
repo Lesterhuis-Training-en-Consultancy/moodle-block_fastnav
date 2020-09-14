@@ -51,7 +51,6 @@ $parentcourse = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
 $PAGE->navbar->add(ucfirst($parentcourse->fullname), new moodle_url('/course/view.php', ['id' => $parentcourse->id]));
 $PAGE->navbar->add(get_string('heading:overview', 'block_fastnav'));
 
-/** @var block_fastnav_renderer $renderer * */
 $renderer = $PAGE->get_renderer('block_fastnav');
 $item = new \block_fastnav\item($id);
 

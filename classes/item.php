@@ -25,6 +25,7 @@
  **/
 
 namespace block_fastnav;
+defined('MOODLE_INTERNAL') || die;
 
 use block_fastnav\traits\database_model;
 use context_block;
@@ -32,8 +33,6 @@ use dml_exception;
 use html_writer;
 use moodle_url;
 use stdClass;
-
-defined('MOODLE_INTERNAL') || die;
 
 /**
  * Class item (link items)
@@ -72,6 +71,8 @@ class item {
     }
 
     /**
+     * get_new_sortorder
+     *
      * @param int $instanceid
      *
      * @return int
@@ -87,6 +88,8 @@ class item {
     }
 
     /**
+     * Save item
+     *
      * @param stdClass $formdata
      * @param          $context
      *
@@ -130,6 +133,8 @@ class item {
     }
 
     /**
+     * Get name
+     *
      * @return string
      */
     public function name() : string {
@@ -137,6 +142,8 @@ class item {
     }
 
     /**
+     * Get item icon
+     *
      * @return string
      * @throws \coding_exception
      */
@@ -168,6 +175,8 @@ class item {
     }
 
     /**
+     * Get link
+     *
      * @return string
      * @throws \moodle_exception
      */
@@ -176,6 +185,8 @@ class item {
     }
 
     /**
+     * get_items
+     *
      * @param array $conditions
      *
      * @return array

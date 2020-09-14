@@ -106,7 +106,6 @@ class block_fastnav extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        /** @var block_fastnav_renderer $renderer * */
         $renderer = $this->page->get_renderer('block_fastnav');
 
         // Allow ajax call.

@@ -92,7 +92,7 @@ class external extends external_api {
     public static function get_items_returns() : external_single_structure {
         return new external_single_structure(
             [
-                'open' =>new external_value(PARAM_BOOL, 'Check if fastnav is locked (open) state'),
+                'open' => new external_value(PARAM_BOOL, 'Check if fastnav is locked (open) state'),
                 'items' => new external_multiple_structure(
                     new external_single_structure(
                         [

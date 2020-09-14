@@ -28,13 +28,13 @@ defined('MOODLE_INTERNAL') || die;
 /**
  * Download files
  *
- * @param       $course
- * @param       $recordorcm
- * @param       $context
- * @param       $filearea
- * @param       $args
- * @param       $forcedownload
- * @param array $options
+ * @param stdClass $course
+ * @param stdClass $recordorcm
+ * @param stdClass $context
+ * @param string   $filearea
+ * @param array    $args
+ * @param bool     $forcedownload
+ * @param array    $options
  *
  * @throws coding_exception
  * @throws moodle_exception
@@ -72,14 +72,6 @@ function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $ar
         send_file_not_found();
     }
 
-    if ($parentcontext = context::instance_by_id($recordorcm->parentcontextid, IGNORE_MISSING)) {
-        if ($parentcontext->contextlevel == CONTEXT_USER) {
-            $forcedownload = true;
-        }
-    } else {
-        $forcedownload = true;
-    }
-
     \core\session\manager::write_close();
-    send_stored_file($file, null, 0, $forcedownload, $options);
+    send_stored_file($file, null, 0, true, $options);
 }

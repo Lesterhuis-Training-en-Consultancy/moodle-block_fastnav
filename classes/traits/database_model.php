@@ -56,7 +56,7 @@ trait database_model {
     /**
      * Set record
      *
-     * @param $record
+     * @param stdClass $record
      *
      * @return $this
      */

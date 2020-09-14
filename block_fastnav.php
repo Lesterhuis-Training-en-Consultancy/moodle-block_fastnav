@@ -200,26 +200,6 @@ class block_fastnav extends block_base {
     }
 
     /**
-     * Copy any block-specific data when copying to a new block instance.
-     *
-     * @param int $fromid the id number of the block instance to copy from
-     *
-     * @return boolean
-     */
-//    public function instance_copy($fromid) : bool {
-//        $fromcontext = context_block::instance($fromid);
-////        $fs = get_file_storage();
-////        // This extra check if file area is empty adds one query if it is not empty but saves several if it is.
-////        if (!$fs->is_area_empty($fromcontext->id, 'block_fastnav', 'content', 0, false)) {
-////            $draftitemid = 0;
-////            file_prepare_draft_area($draftitemid, $fromcontext->id, 'block_fastnav', 'content', 0, ['subdirs' => true]);
-////            file_save_draft_area_files($draftitemid, $this->context->id, 'block_fastnav', 'content', 0, ['subdirs' => true]);
-////        }
-//
-//        return true;
-//    }
-
-    /**
      * @return bool
      */
     private function can_display_sidebar() : bool {

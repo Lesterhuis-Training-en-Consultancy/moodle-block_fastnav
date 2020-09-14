@@ -57,7 +57,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
             },
 
             /**
-             * start
+             * Start
              */
             start: function() {
                 Log.debug('block_fastnav/sidebar: start()');
@@ -79,7 +79,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
                 }]);
                 promises[0].done(function(response) {
 
-                    if(response.items.length === 0){
+                    if (response.items.length === 0) {
                         Log.debug('block_fastnav/sidebar: no items.');
                         return;
                     }
@@ -131,10 +131,10 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
                     sidebar.openOrClose();
                 });
 
-                $('body').on('click', '.block-fastnav-lock', function() {
+                $('body').on('click', '.block-fastnav-lock', function(event) {
 
                     // Check current status.
-                    var $el = $(this);
+                    var $el = $(event.currentTarget);
                     var locked = $el.hasClass('active');
                     Log.debug('block_fastnav/sidebar: locked ', locked);
 

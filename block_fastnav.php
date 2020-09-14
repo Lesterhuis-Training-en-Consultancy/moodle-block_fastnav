@@ -40,6 +40,8 @@ defined('MOODLE_INTERNAL') || die;
 class block_fastnav extends block_base {
 
     /**
+     * init
+     *
      * @throws coding_exception
      */
     public function init() : void {
@@ -72,6 +74,8 @@ class block_fastnav extends block_base {
     }
 
     /**
+     * specialization
+     *
      * @throws coding_exception
      */
     public function specialization() : void {
@@ -145,17 +149,8 @@ class block_fastnav extends block_base {
     }
 
     /**
-     * Serialize and store config data
+     * instance_delete
      *
-     * @param      $data
-     * @param bool $nolongerused
-     */
-    public function instance_config_save($data, $nolongerused = false) : void {
-        $config = clone($data);
-        parent::instance_config_save($config, $nolongerused);
-    }
-
-    /**
      * @return bool
      * @throws dml_exception
      */
@@ -193,12 +188,14 @@ class block_fastnav extends block_base {
         $config->format = FORMAT_HTML;
         $config->display_modus = helper::SHOW_BLOCK_AND_SIDEBAR;
 
-        parent::instance_config_save($config);
+        $this->instance_config_save($config);
 
         return true;
     }
 
     /**
+     * can_display_sidebar
+     *
      * @return bool
      */
     private function can_display_sidebar() : bool {
@@ -212,16 +209,18 @@ class block_fastnav extends block_base {
     }
 
     /**
+     * can_display_block
+     *
      * @return bool
      */
     private function can_display_block() : bool {
-        $display_modus = (int)$this->config->display_modus;
+        $displaymodus = (int)$this->config->display_modus;
 
-        if ($display_modus === helper::SHOW_BLOCK_ONLY) {
+        if ($displaymodus === helper::SHOW_BLOCK_ONLY) {
             return true;
         }
 
-        if ($display_modus === helper::SHOW_BLOCK_AND_SIDEBAR) {
+        if ($displaymodus === helper::SHOW_BLOCK_AND_SIDEBAR) {
             return true;
         }
 

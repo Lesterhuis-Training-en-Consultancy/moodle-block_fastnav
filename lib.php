@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die;
  * Download files
  *
  * @param       $course
- * @param       $birecord_or_cm
+ * @param       $recordorcm
  * @param       $context
  * @param       $filearea
  * @param       $args
@@ -40,7 +40,7 @@ defined('MOODLE_INTERNAL') || die;
  * @throws moodle_exception
  * @throws require_login_exception
  */
-function block_fastnav_pluginfile($course, $birecord_or_cm, $context, $filearea, $args, $forcedownload, array $options = []) {
+function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $args, $forcedownload, array $options = []) {
     global $CFG, $USER;
 
     if ($context->contextlevel != CONTEXT_BLOCK) {
@@ -77,7 +77,7 @@ function block_fastnav_pluginfile($course, $birecord_or_cm, $context, $filearea,
         send_file_not_found();
     }
 
-    if ($parentcontext = context::instance_by_id($birecord_or_cm->parentcontextid, IGNORE_MISSING)) {
+    if ($parentcontext = context::instance_by_id($recordorcm->parentcontextid, IGNORE_MISSING)) {
         if ($parentcontext->contextlevel == CONTEXT_USER) {
             $forcedownload = true;
         }

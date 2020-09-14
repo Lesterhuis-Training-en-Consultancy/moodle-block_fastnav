@@ -40,6 +40,8 @@ defined('MOODLE_INTERNAL') || die;
 class block_fastnav_edit_form extends block_edit_form {
 
     /**
+     * specific_definition
+     *
      * @param object $mform
      *
      * @throws coding_exception

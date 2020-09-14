@@ -29,6 +29,7 @@ defined('MOODLE_INTERNAL') || die;
 
 use coding_exception;
 use dml_exception;
+use Exception;
 use ReflectionClass;
 use ReflectionException;
 use stdClass;
@@ -172,6 +173,7 @@ trait database_model {
      * Get the class of the item
      *
      * @return string
+     * @throws Exception
      */
     public static function get_class() : string {
 
@@ -179,7 +181,7 @@ trait database_model {
             $reflect = new ReflectionClass(static::class);
             $class = $reflect->getShortName();
         } catch (ReflectionException $exception) {
-            die(' Fatal Error get_class() should always exists!');
+            throw new Exception(' Fatal Error get_class() should always exists!');
         }
 
         return $class;

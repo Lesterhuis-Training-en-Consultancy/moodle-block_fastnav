@@ -33,6 +33,7 @@ require_once($CFG->libdir . '/tablelib.php');
  * Class block_fastnav_renderer
  *
  * @package   block_fastnav
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright 20/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  */
@@ -95,6 +96,8 @@ class block_fastnav_renderer extends plugin_renderer_base {
     }
 
     /**
+     * get_edit_button
+     *
      * @return string
      * @throws coding_exception
      * @throws moodle_exception

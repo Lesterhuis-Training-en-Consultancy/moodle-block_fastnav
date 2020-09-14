@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die;
 /**
  * Execute on plugin upgrade
  *
- * @param $oldversion
+ * @param int $oldversion
  *
  * @return bool
  * @throws ddl_exception

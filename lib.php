@@ -41,7 +41,7 @@ defined('MOODLE_INTERNAL') || die;
  * @throws require_login_exception
  */
 function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $args, $forcedownload, array $options = []) {
-    global $CFG, $USER;
+    global $CFG;
 
     if ($context->contextlevel != CONTEXT_BLOCK) {
         send_file_not_found();
@@ -53,23 +53,18 @@ function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $ar
     } else if ($CFG->forcelogin) {
         require_login();
     } else {
+
         // Get parent context and see if user have proper permission.
         $parentcontext = $context->get_parent_context();
-        if ($parentcontext->contextlevel === CONTEXT_COURSECAT) {
-            // Check if category is visible and user can view this category.
-            if (!core_course_category::get($parentcontext->instanceid, IGNORE_MISSING)) {
-                send_file_not_found();
-            }
-        } else if ($parentcontext->contextlevel === CONTEXT_USER && $parentcontext->instanceid != $USER->id) {
-            // The block is in the context of a user, it is only visible to the user who it belongs to.
+        // Check if category is visible and user can view this category.
+        if (($parentcontext->contextlevel === CONTEXT_COURSECAT)
+            && !core_course_category::get($parentcontext->instanceid, IGNORE_MISSING)) {
             send_file_not_found();
         }
-        // At this point there is no way to check SYSTEM context, so ignoring it.
     }
 
     $fs = get_file_storage();
     $itemid = (int)array_shift($args);
-
     $filename = array_pop($args);
 
     if (!$file = $fs->get_file($context->id, 'block_fastnav', $filearea, $itemid, '/',

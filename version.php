@@ -25,8 +25,8 @@
  **/
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2020091400;
+$plugin->version = 2020110700;
 $plugin->requires = 2020050600;
 $plugin->component = 'block_fastnav';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '3.9.0';
+$plugin->release = '3.10.0';

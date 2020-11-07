@@ -89,7 +89,7 @@ div.block-fastnav-opener .icon {
 .block_fastnav ul.block-fastnav-items {
     list-style: none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 .block_fastnav ul.block-fastnav-items li {
@@ -144,7 +144,7 @@ nav.block-fastnav-sidebar li {
 }
 
 nav.block-fastnav-sidebar li span {
-    display: none
+    display: none;
 }
 
 nav.block-fastnav-sidebar .block-fastnav-opener {
@@ -154,5 +154,5 @@ nav.block-fastnav-sidebar .block-fastnav-opener {
     width: 20px;
     height: 50px;
     margin: 10px 0 0 -25px;
-    cursor: pointer
+    cursor: pointer;
 }

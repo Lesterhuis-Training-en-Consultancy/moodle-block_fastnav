@@ -72,6 +72,7 @@ trait database_model {
      * @param string $name
      *
      * @return null|mixed
+     * @throws Exception
      */
     public function get(string $name = '') {
 

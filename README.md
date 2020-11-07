@@ -13,6 +13,7 @@ Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://
 * Supports PHP: 7.2 
 
 ![Moodle39](https://img.shields.io/badge/moodle-3.9-brightgreen.svg)
+![Moodle310](https://img.shields.io/badge/moodle-3.10-brightgreen.svg)
 ![PHP7.2](https://img.shields.io/badge/PHP-7.2-brightgreen.svg)
 
 ## Screens

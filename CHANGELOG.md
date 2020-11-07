@@ -30,7 +30,12 @@ Types of changes
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
+## Version (3.10) - 2020-11-07
+
+#### Added
+- Tested in Moodle 3.10 no issues found.
+
 ## Version (3.9) - 2020-07-16
 
-### Added
+#### Added
 - Release of the first official stable version.

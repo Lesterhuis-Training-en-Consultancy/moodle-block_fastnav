@@ -13,7 +13,6 @@ module.exports = function (grunt) {
     grunt.loadGruntfile(MOODLE_DIR + "Gruntfile.js");
 
     //Load all grunt tasks.
-    grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-fixindent");

@@ -2,7 +2,6 @@
   "name": "block_fastnav",
   "devDependencies": {
     "grunt": "^1.0.4",
-    "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-fixindent": "^0.1.3",
     "grunt-load-gruntfile": "0.0.2"

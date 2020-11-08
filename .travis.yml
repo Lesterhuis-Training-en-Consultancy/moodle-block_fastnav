@@ -1,7 +1,7 @@
 language: php
 
 addons:
-  postgresql: "9.5"
+  postgresql: "9.6"
 
 services:
   - mysql
@@ -21,6 +21,8 @@ php:
 env:
   global:
     - MOODLE_BRANCH=MOODLE_39_STABLE
+    - MOODLE_BRANCH=MOODLE_310_STABLE
+
   matrix:
     - DB=pgsql
     - DB=mysqli
@@ -32,7 +34,6 @@ before_install:
   - cd ../..
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci dev-master
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-  #- docker run -d -p 127.0.0.1:4444:4444 --net=host -v /dev/shm:/dev/shm selenium/standalone-chrome:3
 
 install:
   - moodle-plugin-ci install
@@ -48,4 +49,3 @@ script:
   - moodle-plugin-ci grunt || false
   - moodle-plugin-ci phpdoc
   - moodle-plugin-ci phpunit
-  # - moodle-plugin-ci behat --profile chrome --dump

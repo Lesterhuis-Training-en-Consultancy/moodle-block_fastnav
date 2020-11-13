@@ -1,6 +1,7 @@
+/* eslint-env node */
 "use strict";
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     // Running local with
     // First time npm install
     // nvm use 8.9

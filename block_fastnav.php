@@ -61,6 +61,9 @@ class block_fastnav extends block_base {
     /**
      * Which page types this block may appear on.
      *
+     * The information returned here is processed by the
+     * to know exactly how this works.
+     *
      * Default case: everything except mod and tag.
      *
      * @return array page-type prefix => true/false.

@@ -60,11 +60,14 @@ class output_items implements renderable, templatable {
     }
 
     /**
-     * export_for_template
+     * Function to export the renderer data in a format that is suitable for a
+     * mustache template. This means:
+     * 1. No complex types - only stdClass, array, int, string, float, bool
+     * 2. Any additional info that is required for the template is pre-calculated (e.g. capability checks).
      *
-     * @param renderer_base $output
+     * @param renderer_base $output Used to do a final render of any components that need to be rendered for export.
      *
-     * @return array|stdClass
+     * @return stdClass|array
      * @throws \dml_exception
      */
     public function export_for_template(renderer_base $output) {

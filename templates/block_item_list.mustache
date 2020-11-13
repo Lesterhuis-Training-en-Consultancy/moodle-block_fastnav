@@ -20,7 +20,7 @@
     @author    Luuk Verhoeven
 }}
 {{!
-    @template  block_fastnav/block_item_list
+    @template block_fastnav/block_item_list
 
     Used for fastnav block and fast menu navigation
 
@@ -31,7 +31,7 @@
             {
                 "name": "Name",
                 "link": "/test",
-                "icon": "<img src='/pluginfiles/'>",
+                "icon": "<img src='/pluginfiles/'>"
             }
         ]
     }
@@ -43,7 +43,7 @@
     <ul class="block-fastnav-items">
         {{#items}}
             <li>
-                <a href="{{link}}" rel="noreferrer" title="{{name}}" data-placement="left" title="{{name}}">
+                <a href="{{link}}" rel="noreferrer" data-placement="left" title="{{name}}">
                     <figure>{{{icon}}}
                         <span class="block-fastnav-name">
                             {{name}}

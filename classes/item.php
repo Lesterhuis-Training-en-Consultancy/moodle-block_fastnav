@@ -71,6 +71,24 @@ class item {
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function name() : string {
+        return $this->record->name ?? '';
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function id() : string {
+        return $this->record->id ?? '';
+    }
+
+    /**
      * get_new_sortorder
      *
      * @param int $instanceid
@@ -130,15 +148,6 @@ class item {
         $record = $this->record;
 
         return $record;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function name() : string {
-        return $this->record->name ?? '';
     }
 
     /**

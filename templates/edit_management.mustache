@@ -20,7 +20,7 @@
     @author    Luuk Verhoeven
 }}
 {{!
-    @template  block_fastnav/edit_management
+    @template block_fastnav/edit_management
 
     Used for the edit button and delete prevention.
 
@@ -35,25 +35,25 @@
 <hr>
 <script>
     // Add delete the warning message.
-    {{#js}}
-    require(['jquery', 'core/notification'], function($, Notification) {
+        {{#js}}
+        require(['jquery', 'core/notification'], function($, Notification) {
 
-        $(document).ready(function() {
+            $(document).ready(function() {
 
-            $('.btn-danger').on('click', function(e) {
-                e.preventDefault();
+                $('.btn-danger').on('click', function(e) {
+                    e.preventDefault();
 
-                let link = $(this).attr('href');
-                Notification.confirm(
-                        '{{# str}} js:confirm_delete_title, block_fastnav {{/ str}}',
-                        '{{# str}} js:confirm_delete_message, block_fastnav {{/ str}}',
-                        '{{# str}} btn:confirm, block_fastnav {{/ str}}',
-                        '{{# str}} btn:cancel, block_fastnav {{/ str}}',
-                        function() {
-                            window.location = link;
-                        });
+                    let link = $(this).attr('href');
+                    Notification.confirm(
+                            '{{# str}} js:confirm_delete_title, block_fastnav {{/ str}}',
+                            '{{# str}} js:confirm_delete_message, block_fastnav {{/ str}}',
+                            '{{# str}} btn:confirm, block_fastnav {{/ str}}',
+                            '{{# str}} btn:cancel, block_fastnav {{/ str}}',
+                            function() {
+                                window.location = link;
+                            });
+                });
             });
         });
-    });
-    {{/js}}
+        {{/js}}
 </script>

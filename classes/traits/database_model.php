@@ -241,16 +241,4 @@ trait database_model {
 
         return true;
     }
-
-    /**
-     * Magic getter
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function __get(string $name) {
-        return $this->record->$name ?? null;
-    }
-
 }

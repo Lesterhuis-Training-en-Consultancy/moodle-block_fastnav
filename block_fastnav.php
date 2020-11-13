@@ -62,7 +62,6 @@ class block_fastnav extends block_base {
      * Which page types this block may appear on.
      *
      * The information returned here is processed by the
-     * {@link blocks_name_allowed_in_format()} function. Look there if you need
      * to know exactly how this works.
      *
      * Default case: everything except mod and tag.

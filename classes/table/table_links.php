@@ -129,6 +129,28 @@ class table_links extends table_sql {
     }
 
     /**
+     * col_name
+     *
+     * @param item $item
+     *
+     * @return string
+     */
+    public function col_name(item $item) : string {
+        return $item->name();
+    }
+
+    /**
+     * col_id
+     *
+     * @param item $item
+     *
+     * @return string
+     */
+    public function col_id(item $item) : string {
+        return $item->id();
+    }
+
+    /**
      * col_action
      *
      * @param item $item
@@ -144,7 +166,7 @@ class table_links extends table_sql {
         }
 
         $params = array_merge($PAGE->url->params(), [
-            'id' => $item->id,
+            'id' => $item->id(),
         ]);
 
         $list = [

@@ -33,6 +33,7 @@ Types of changes
 ## Version (3.10) - 2020-11-07
 
 #### Added
+- Improved code style
 - Tested in Moodle 3.10 no issues found.
 
 ## Version (3.9) - 2020-07-16

@@ -4,8 +4,9 @@
 module.exports = function(grunt) {
     // Running local with
     // First time npm install
-    // nvm use 8.9
+    // nvm use 14
     // grunt --moodledir=/Users/mail/OPENSOURCE/moodle-370/
+    // grunt --moodledir=../../..
 
     // We need to include the core Moodle grunt file too, otherwise we can't run tasks like "amd".
     require("grunt-load-gruntfile")(grunt);
@@ -25,7 +26,11 @@ module.exports = function(grunt) {
                 tasks: ["amd"]
             }
         },
-
+        stylelint: {
+            css: {},
+            scss: {},
+            less: {},
+        },
         eslint: {
             amd: {src: "amd/src"}
         },

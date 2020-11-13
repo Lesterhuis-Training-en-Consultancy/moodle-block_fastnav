@@ -31,12 +31,12 @@
             {
                 "name": "Name",
                 "link": "/test",
-                "icon": "<img src='/pluginfiles/'>"
+                "icon": "/pluginfiles.php?"
             }
         ]
     }
 }}
-<section>
+<div>
     <div class="block-fastnav-opener btn btn-light">
         <i class="icon fa fa-arrow-left"></i>
     </div>
@@ -44,7 +44,8 @@
         {{#items}}
             <li>
                 <a href="{{link}}" rel="noreferrer" data-placement="left" title="{{name}}">
-                    <figure>{{{icon}}}
+                    <figure>
+                        <img src="{{icon}}" alt="{{name}}" class="block-fastnav-icon">
                         <span class="block-fastnav-name">
                             {{name}}
                         </span>
@@ -53,7 +54,7 @@
             </li>
         {{/items}}
     </ul>
-</section>
+</div>
 <div class="block-fastnav-lock {{#open}}active{{/open}}">
     <i class="fa fa-lock"></i>
 </div>

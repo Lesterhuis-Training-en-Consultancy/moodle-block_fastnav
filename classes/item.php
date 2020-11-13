@@ -30,7 +30,6 @@ defined('MOODLE_INTERNAL') || die;
 use block_fastnav\traits\database_model;
 use context_block;
 use dml_exception;
-use html_writer;
 use moodle_url;
 use stdClass;
 
@@ -166,7 +165,7 @@ class item {
                 continue;
             }
 
-            $url = moodle_url::make_pluginfile_url(
+            return moodle_url::make_pluginfile_url(
                 $file->get_contextid(),
                 $file->get_component(),
                 $file->get_filearea(),
@@ -174,10 +173,6 @@ class item {
                 $file->get_filepath(),
                 $file->get_filename()
             );
-
-            return html_writer::img($url, $file->get_filename(), [
-                'class' => 'block-fastnav-icon',
-            ]);
         }
 
         return '';

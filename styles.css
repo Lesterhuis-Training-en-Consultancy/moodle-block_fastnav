@@ -6,7 +6,9 @@
 
 /* Fix tooltips */
 .tooltip {
+    /* stylelint-disable */
     z-index: 99999 !important;
+    /* stylelint-enable */
 }
 
 /* CSS hover effect */

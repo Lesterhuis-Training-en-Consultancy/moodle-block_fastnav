@@ -5,14 +5,22 @@ module.exports = function(grunt) {
     // Running local with
     // First time npm install
     // nvm use 14
-    // grunt --moodledir=/Users/mail/OPENSOURCE/moodle-370/
+    // grunt --moodledir=/Users/mail/OPENSOURCE/moodle-310/
     // grunt --moodledir=../../..
 
     // We need to include the core Moodle grunt file too, otherwise we can't run tasks like "amd".
-    require("grunt-load-gruntfile")(grunt);
+    // We need to include the core Moodle grunt file too, otherwise we can't run tasks like "amd".
+    try {
+        if(require.resolve("grunt-load-gruntfile")){
+            require("grunt-load-gruntfile")(grunt);
+        }
 
-    var MOODLE_DIR = grunt.option('moodledir') || '../../';
-    grunt.loadGruntfile(MOODLE_DIR + "Gruntfile.js");
+        var MOODLE_DIR = grunt.option('moodledir') || '../../';
+        grunt.loadGruntfile(MOODLE_DIR + "Gruntfile.js");
+
+    }catch(ex){
+        // Only used when running localy for compiling.
+    }
 
     //Load all grunt tasks.
     grunt.loadNpmTasks("grunt-contrib-watch");

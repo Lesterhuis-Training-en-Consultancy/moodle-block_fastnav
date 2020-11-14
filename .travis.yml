@@ -15,17 +15,14 @@ cache:
 
 php:
   - 7.2
-  - 7.3
   - 7.4
 
 env:
   global:
-    - MOODLE_BRANCH=MOODLE_39_STABLE
     - MOODLE_BRANCH=MOODLE_310_STABLE
 
   matrix:
     - DB=pgsql
-    - DB=mysqli
 
 before_install:
   - phpenv config-rm xdebug.ini
@@ -34,8 +31,6 @@ before_install:
   - cd ../..
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci dev-master
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
-  - npm install
-  - npm install eslint-plugin-babel@latest --save-dev
 
 install:
   - moodle-plugin-ci install

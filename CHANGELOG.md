@@ -36,6 +36,9 @@ Types of changes
 - Improved code style
 - Tested in Moodle 3.10 no issues found.
 
+#### Removed
+- Remove `.eslintrc` `Gruntfile.js` and `packages.json` from the project causes Travis issues.
+
 ## Version (3.9) - 2020-07-16
 
 #### Added

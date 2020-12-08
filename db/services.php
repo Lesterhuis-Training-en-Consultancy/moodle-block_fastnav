@@ -34,6 +34,6 @@ $functions = [
         'type' => 'read',
         'capabilities' => '',
         'ajax' => true,
-        'loginrequired' => true,
+        'loginrequired' => false,
     ],
 ];

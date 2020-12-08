@@ -113,7 +113,7 @@ class table_links extends table_sql {
      * @throws coding_exception
      */
     public function col_icon(item $item) : string {
-        return $item->icon();
+        return html_writer::img($item->icon(), '');
     }
 
     /**

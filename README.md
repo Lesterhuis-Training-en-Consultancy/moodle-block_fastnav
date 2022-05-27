@@ -34,7 +34,7 @@ Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://
 
 ## Security
 
-If you discover any security related issues, please email [luuk@MFreak.nl](mailto:luuk@MFreak.nl) instead of using the issue tracker.
+If you discover any security related issues, please email [servicedesk@ltnc.nl](mailto:lservicedesk@ltnc.nl) instead of using the issue tracker.
 
 ## License
 

@@ -31,7 +31,7 @@ $courseid = required_param('courseid', PARAM_INT);
 $action = optional_param('action', '', PARAM_ALPHA);
 $id = optional_param('id', false, PARAM_INT);
 
-$blockcontext = context_block::instance($instanceid, MUST_EXIST);
+$blockcontext = context_block::instance($instanceid);
 
 // Security check.
 require_capability('block/fastnav:management', $blockcontext);
@@ -84,7 +84,7 @@ switch ($action) {
             redirect($baseurl);
         }
 
-        if (($formdata = $form->get_data()) != false) {
+        if ($formdata = $form->get_data()) {
 
             $formdata->id = $item->get_id();
             $item->save($formdata, $blockcontext);

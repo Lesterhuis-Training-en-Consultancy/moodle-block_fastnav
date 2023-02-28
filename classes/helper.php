@@ -25,7 +25,6 @@
  **/
 
 namespace block_fastnav;
-defined('MOODLE_INTERNAL') || die;
 
 /**
  * Class helper
@@ -60,7 +59,7 @@ class helper {
      *
      * @return array
      */
-    public static function get_file_options(int $maxfiles = 1) : array {
+    public static function get_file_options(int $maxfiles = 1): array {
         global $CFG;
 
         return [
@@ -70,4 +69,5 @@ class helper {
             'accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'],
         ];
     }
+
 }

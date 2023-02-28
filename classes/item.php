@@ -74,7 +74,7 @@ class item {
      *
      * @return string
      */
-    public function name() : string {
+    public function name(): string {
         return $this->record->name ?? '';
     }
 
@@ -83,7 +83,7 @@ class item {
      *
      * @return string
      */
-    public function id() : string {
+    public function id(): string {
         return $this->record->id ?? '';
     }
 
@@ -95,10 +95,10 @@ class item {
      * @return int
      * @throws dml_exception
      */
-    public function get_new_sortorder(int $instanceid = 0) : int {
+    public function get_new_sortorder(int $instanceid = 0): int {
         global $DB;
 
-        return (int)$DB->get_field_select(self::$table,
+        return (int) $DB->get_field_select(self::$table,
                 'MAX(sortorder)',
                 "blockinstanceid = ?",
                 [$instanceid]) + 1;
@@ -107,13 +107,13 @@ class item {
     /**
      * Save item
      *
-     * @param stdClass      $formdata
+     * @param stdClass $formdata
      * @param context_block $context
      *
      * @return bool
      * @throws dml_exception
      */
-    public function save(stdClass $formdata, context_block $context) : bool {
+    public function save(stdClass $formdata, context_block $context): bool {
 
         if (empty($formdata->id)) {
             $formdata->blockinstanceid = $context->instanceid; // Maybe we can only use context id.
@@ -143,10 +143,9 @@ class item {
      *
      * @return stdClass
      */
-    public function get_data() : stdClass {
-        $record = $this->record;
+    public function get_data(): stdClass {
 
-        return $record;
+        return $this->record;
     }
 
     /**
@@ -155,7 +154,7 @@ class item {
      * @return string
      * @throws \coding_exception
      */
-    public function icon() : string {
+    public function icon(): string {
 
         $fs = get_file_storage();
         $files = $fs->get_area_files($this->get('contextid'), 'block_fastnav', 'link_icon', $this->get_id());
@@ -184,7 +183,7 @@ class item {
      * @return string
      * @throws \moodle_exception
      */
-    public function link() : string {
+    public function link(): string {
         return new moodle_url($this->record->link ?? '');
     }
 
@@ -196,7 +195,7 @@ class item {
      * @return array
      * @throws dml_exception
      */
-    public static function get_items(array $conditions) : array {
+    public static function get_items(array $conditions): array {
         global $DB;
 
         $items = [];

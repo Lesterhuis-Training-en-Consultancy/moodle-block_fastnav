@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 
 $functions = [
     'block_fastnav_get_items' => [
-        'classname' => 'block_fastnav\external',
+        'classname' => \block_fastnav\external::class,
         'methodname' => 'get_items',
         'classpath' => '',
         'description' => 'Get menu items.',

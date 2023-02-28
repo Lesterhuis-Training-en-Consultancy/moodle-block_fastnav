@@ -89,10 +89,8 @@ class block_fastnav_renderer extends plugin_renderer_base {
         $table->collapsible(false);
 
         $table->out(100, true);
-        $content = ob_get_contents();
-        ob_end_clean();
 
-        return $content;
+        return ob_get_clean();
     }
 
     /**

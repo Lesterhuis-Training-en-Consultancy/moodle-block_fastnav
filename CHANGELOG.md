@@ -29,6 +29,14 @@ Types of changes
 * **Removed** for now removed features.
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
+* 
+## Version (4.1) - 2023-03-16
+
+#### Added
+
+- Code improvement.
+- Moodle 4.1 support implemented.
+- CI test.
 
 ## Version (3.10) - 2020-11-07
 

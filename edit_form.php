@@ -26,8 +26,6 @@
 
 use block_fastnav\helper;
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * Class block_fastnav_edit_form
  *

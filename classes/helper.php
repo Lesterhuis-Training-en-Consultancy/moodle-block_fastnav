@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Helper functions
+ * Helper functions.
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -25,10 +25,9 @@
  **/
 
 namespace block_fastnav;
-defined('MOODLE_INTERNAL') || die;
 
 /**
- * Class helper
+ * Class helper.
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -60,7 +59,7 @@ class helper {
      *
      * @return array
      */
-    public static function get_file_options(int $maxfiles = 1) : array {
+    public static function get_file_options(int $maxfiles = 1): array {
         global $CFG;
 
         return [
@@ -70,4 +69,5 @@ class helper {
             'accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'],
         ];
     }
+
 }

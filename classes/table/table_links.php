@@ -25,7 +25,6 @@
  **/
 
 namespace block_fastnav\table;
-defined('MOODLE_INTERNAL') || die();
 
 use block_fastnav\item;
 use coding_exception;
@@ -51,7 +50,7 @@ class table_links extends table_sql {
      * table_links constructor.
      *
      * @param string $uniqueid
-     * @param int    $blockinstanceid
+     * @param int $blockinstanceid
      */
     public function __construct(string $uniqueid, int $blockinstanceid) {
 
@@ -72,9 +71,9 @@ class table_links extends table_sql {
     /**
      * Always ordered by sortorder
      *
-     * @return SQL fragment that can be used in an ORDER BY clause.
+     * @return string fragment that can be used in an ORDER BY clause.
      */
-    public function get_sql_sort() : string {
+    public function get_sql_sort(): string {
         return 'sortorder ASC';
     }
 
@@ -86,7 +85,7 @@ class table_links extends table_sql {
      *
      * After calling this function, don't forget to call close_recordset.
      */
-    public function build_table() : void {
+    public function build_table(): void {
 
         if ($this->rawdata instanceof Traversable && !$this->rawdata->valid()) {
             return;
@@ -112,7 +111,7 @@ class table_links extends table_sql {
      * @return string
      * @throws coding_exception
      */
-    public function col_icon(item $item) : string {
+    public function col_icon(item $item): string {
         return html_writer::img($item->icon(), '');
     }
 
@@ -124,7 +123,7 @@ class table_links extends table_sql {
      * @return string
      * @throws moodle_exception
      */
-    public function col_link(item $item) : string {
+    public function col_link(item $item): string {
         return $item->link();
     }
 
@@ -135,7 +134,7 @@ class table_links extends table_sql {
      *
      * @return string
      */
-    public function col_name(item $item) : string {
+    public function col_name(item $item): string {
         return $item->name();
     }
 
@@ -146,7 +145,7 @@ class table_links extends table_sql {
      *
      * @return string
      */
-    public function col_id(item $item) : string {
+    public function col_id(item $item): string {
         return $item->id();
     }
 
@@ -159,7 +158,7 @@ class table_links extends table_sql {
      * @throws coding_exception
      * @throws moodle_exception
      */
-    public function col_action(item $item) : string {
+    public function col_action(item $item): string {
         global $PAGE;
         if ($this->is_downloading()) {
             return '';

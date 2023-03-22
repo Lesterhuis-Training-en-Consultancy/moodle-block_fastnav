@@ -60,7 +60,7 @@ trait database_model {
      *
      * @return $this
      */
-    public function set_record(stdClass $record) : self {
+    public function set_record(stdClass $record): self {
         $this->record = $record;
 
         return $this;
@@ -90,7 +90,7 @@ trait database_model {
      *
      * @return int
      */
-    public function get_id() : int {
+    public function get_id(): int {
         return $this->record->id ?? 0;
     }
 
@@ -101,9 +101,9 @@ trait database_model {
      *
      * @return self
      */
-    public function set(stdClass $formdata) : self {
+    public function set(stdClass $formdata): self {
 
-        $formdata = (object)$formdata;
+        $formdata = (object) $formdata;
         if (empty($this->record)) {
             $this->record = new stdClass();
         }
@@ -126,7 +126,7 @@ trait database_model {
      * @return int
      * @throws dml_exception
      */
-    public function create() : int {
+    public function create(): int {
         global $DB;
         $obj = new stdClass();
         unset($this->record->id, $this->record->submitbutton);
@@ -146,7 +146,7 @@ trait database_model {
      *
      * @return bool
      */
-    public function exists() : bool {
+    public function exists(): bool {
         return !empty($this->record->id);
     }
 
@@ -157,7 +157,7 @@ trait database_model {
      *
      * @throws \dml_exception
      */
-    public function update() : int {
+    public function update(): int {
         global $DB;
         $obj = new stdClass();
         $obj->id = $this->record->id;
@@ -176,7 +176,7 @@ trait database_model {
      * @return string
      * @throws Exception
      */
-    public static function get_class() : string {
+    public static function get_class(): string {
 
         try {
             $reflect = new ReflectionClass(static::class);
@@ -194,7 +194,7 @@ trait database_model {
      * @return bool
      * @throws \dml_exception
      */
-    public function delete() : bool {
+    public function delete(): bool {
         global $DB;
 
         $DB->delete_records(self::$table, ['id' => $this->get_id()]);
@@ -205,14 +205,14 @@ trait database_model {
     /**
      * Moves a record
      *
-     * @param int   $direction  move direction: +1 or -1
+     * @param int $direction    move direction: +1 or -1
      * @param array $conditions used for getting matching records
      *
      * @return bool
      * @throws coding_exception
      * @throws dml_exception
      */
-    public function change_sortorder(int $direction, array $conditions = []) : bool {
+    public function change_sortorder(int $direction, array $conditions = []): bool {
         global $DB;
 
         if ($direction !== -1 && $direction !== 1) {
@@ -229,16 +229,17 @@ trait database_model {
         }
         $otherid = $keys[$idx + $direction];
 
-        $DB->update_record(self::$table, (object)[
+        $DB->update_record(self::$table, (object) [
             'id' => $this->get_id(),
             'sortorder' => $idx + $direction,
         ]);
 
-        $DB->update_record(self::$table, (object)[
+        $DB->update_record(self::$table, (object) [
             'id' => $otherid,
             'sortorder' => $idx,
         ]);
 
         return true;
     }
+
 }

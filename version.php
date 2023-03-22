@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * Version information.
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
@@ -25,7 +25,7 @@
  **/
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2020120800;
+$plugin->version = 2023031600;
 $plugin->requires = 2020050600;
 $plugin->component = 'block_fastnav';
 $plugin->maturity = MATURITY_STABLE;

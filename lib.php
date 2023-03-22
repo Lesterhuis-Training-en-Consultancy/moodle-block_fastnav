@@ -23,7 +23,6 @@
  * @copyright 17/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
-defined('MOODLE_INTERNAL') || die;
 
 /**
  * Download files

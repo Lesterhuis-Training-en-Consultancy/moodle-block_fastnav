@@ -25,7 +25,6 @@
  **/
 
 namespace block_fastnav\output;
-defined('MOODLE_INTERNAL') || die;
 
 use ArrayIterator;
 use block_fastnav\item;
@@ -79,4 +78,5 @@ class output_items implements renderable, templatable {
 
         return $dataobject;
     }
+
 }

@@ -25,7 +25,6 @@
  **/
 
 namespace block_fastnav;
-defined('MOODLE_INTERNAL') || die;
 
 use external_api;
 use external_function_parameters;
@@ -56,7 +55,7 @@ class external extends external_api {
      * @throws \dml_exception
      * @throws \invalid_parameter_exception
      */
-    public static function get_items(int $instanceid) : array {
+    public static function get_items(int $instanceid): array {
         $warnings = [];
         $params = external_api::validate_parameters(self::get_items_parameters(), ['instanceid' => $instanceid]);
         $items = item::get_items([
@@ -64,8 +63,8 @@ class external extends external_api {
         ]);
 
         return [
-            'open' => get_user_preferences('block_fastnav_open' , false),
-            'items' => array_map(static function ($item) {
+            'open' => get_user_preferences('block_fastnav_open', false),
+            'items' => array_map(static function($item) {
                 return [
                     'id' => $item->get_id(),
                     'icon' => $item->icon(),
@@ -82,7 +81,7 @@ class external extends external_api {
      *
      * @return external_function_parameters
      */
-    public static function get_items_parameters() : external_function_parameters {
+    public static function get_items_parameters(): external_function_parameters {
         return new external_function_parameters(
             [
                 'instanceid' => new external_value(PARAM_INT, 'Block instance id'),
@@ -95,7 +94,7 @@ class external extends external_api {
      *
      * @return external_single_structure
      */
-    public static function get_items_returns() : external_single_structure {
+    public static function get_items_returns(): external_single_structure {
         return new external_single_structure(
             [
                 'open' => new external_value(PARAM_BOOL, 'Check if fastnav is locked (open) state'),
@@ -113,4 +112,5 @@ class external extends external_api {
             ]
         );
     }
+
 }

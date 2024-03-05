@@ -38,11 +38,11 @@ use block_fastnav\helper;
 class block_fastnav extends block_base {
 
     /**
-     * init
+     * Init
      *
      * @throws coding_exception
      */
-    public function init() : void {
+    public function init(): void {
         $this->title = get_string('pluginname', 'block_fastnav');
     }
 
@@ -52,7 +52,7 @@ class block_fastnav extends block_base {
      *
      * @return boolean
      */
-    public function has_config() : bool {
+    public function has_config(): bool {
         return true;
     }
 
@@ -66,16 +66,16 @@ class block_fastnav extends block_base {
      *
      * @return array page-type prefix => true/false.
      */
-    public function applicable_formats() : array {
+    public function applicable_formats(): array {
         return ['all' => true];
     }
 
     /**
-     * specialization
+     * Specialization
      *
      * @throws coding_exception
      */
-    public function specialization() : void {
+    public function specialization(): void {
         if (isset($this->config->title)) {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
 
@@ -90,13 +90,12 @@ class block_fastnav extends block_base {
      * This should be implemented by the derived class to return
      * the content object.
      *
-     * @return stdObject
+     * @return object
      * @throws coding_exception
      * @throws moodle_exception
      */
-    public function get_content() {
+    public function get_content(): object {
         global $CFG, $USER;
-
         require_once($CFG->libdir . '/filelib.php');
 
         if ($this->content !== null) {
@@ -146,12 +145,12 @@ class block_fastnav extends block_base {
     }
 
     /**
-     * instance_delete
+     * Instance delete
      *
      * @return bool
      * @throws dml_exception
      */
-    public function instance_delete() : bool {
+    public function instance_delete(): bool {
         global $DB;
 
         $fs = get_file_storage();
@@ -167,12 +166,12 @@ class block_fastnav extends block_base {
      * @return boolean
      * @throws dml_exception
      */
-    public function instance_create() : bool {
+    public function instance_create(): bool {
         global $DB, $COURSE;
 
         if (!empty($COURSE->id) && $COURSE->id > 1) {
             // Update default to course-*.
-            $DB->update_record('block_instances', (object)[
+            $DB->update_record('block_instances', (object) [
                 'id' => $this->instance->id,
                 'pagetypepattern' => '*', // Any page.
                 'showinsubcontexts' => 1,
@@ -191,12 +190,12 @@ class block_fastnav extends block_base {
     }
 
     /**
-     * can_display_sidebar
+     * Can display sidebar
      *
      * @return bool
      */
-    private function can_display_sidebar() : bool {
-        $displaymodus = (int)$this->config->display_modus;
+    private function can_display_sidebar(): bool {
+        $displaymodus = (int) $this->config->display_modus;
 
         if ($displaymodus === helper::SHOW_BLOCK_ONLY) {
             return false;
@@ -206,12 +205,12 @@ class block_fastnav extends block_base {
     }
 
     /**
-     * can_display_block
+     * Can display block
      *
      * @return bool
      */
-    private function can_display_block() : bool {
-        $displaymodus = (int)$this->config->display_modus;
+    private function can_display_block(): bool {
+        $displaymodus = (int) $this->config->display_modus;
 
         if ($displaymodus === helper::SHOW_BLOCK_ONLY) {
             return true;

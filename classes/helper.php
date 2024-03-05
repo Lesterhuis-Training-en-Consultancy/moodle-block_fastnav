@@ -66,7 +66,7 @@ class helper {
             'maxbytes' => $CFG->maxbytes,
             'subdirs' => 0,
             'maxfiles' => $maxfiles,
-            'accepted_types' => ['.png', '.jpg', '.gif', '.webp', '.tiff', '.svg'],
+            'accepted_types' => ['web_image'],
         ];
     }
 

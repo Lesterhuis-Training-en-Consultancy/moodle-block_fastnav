@@ -28,6 +28,7 @@ namespace block_fastnav\output;
 
 use ArrayIterator;
 use block_fastnav\item;
+use context_block;
 use renderable;
 use renderer_base;
 use stdClass;
@@ -45,31 +46,32 @@ use templatable;
 class output_items implements renderable, templatable {
 
     /**
-     * @var \context_block
+     * @var context_block
      */
-    private $context;
+    private context_block $context;
 
     /**
      * output_items constructor.
      *
-     * @param \context_block $context
+     * @param context_block $context
      */
-    public function __construct(\context_block $context) {
+    public function __construct(context_block $context) {
         $this->context = $context;
     }
 
     /**
-     * Function to export the renderer data in a format that is suitable for a
-     * mustache template. This means:
+     * Function to export the renderer data in a format that is suitable for a mustache template.
+     *
+     * This means:
      * 1. No complex types - only stdClass, array, int, string, float, bool
      * 2. Any additional info that is required for the template is pre-calculated (e.g. capability checks).
      *
      * @param renderer_base $output Used to do a final render of any components that need to be rendered for export.
      *
-     * @return stdClass|array
+     * @return stdClass
      * @throws \dml_exception
      */
-    public function export_for_template(renderer_base $output) {
+    public function export_for_template(renderer_base $output): stdClass {
         $dataobject = new stdClass();
 
         $dataobject->items = new ArrayIterator(item::get_items([

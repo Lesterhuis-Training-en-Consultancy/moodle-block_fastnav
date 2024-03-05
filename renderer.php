@@ -68,7 +68,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
 
         $table = new block_fastnav\table\table_links(__CLASS__, $this->page->context->instanceid);
         $table->set_attribute('cellspacing', '0');
-        $table->set_attribute('class', 'generaltable generalbox reporttable');
+        $table->set_attribute('class', 'generaltable generalbox reporttable fastnavedittable');
         $table->initialbars(true);
         $table->define_baseurl($this->page->url);
 

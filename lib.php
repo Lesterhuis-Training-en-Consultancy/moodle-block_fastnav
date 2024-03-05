@@ -42,7 +42,7 @@
 function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $args, $forcedownload, array $options = []) {
     global $CFG;
 
-    if ($context->contextlevel != CONTEXT_BLOCK) {
+    if ($context->contextlevel !== CONTEXT_BLOCK) {
         send_file_not_found();
     }
 
@@ -67,7 +67,7 @@ function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $ar
     $filename = array_pop($args);
 
     if (!$file = $fs->get_file($context->id, 'block_fastnav', $filearea, $itemid, '/',
-            $filename) or $file->is_directory()) {
+            $filename) || $file->is_directory()) {
         send_file_not_found();
     }
 

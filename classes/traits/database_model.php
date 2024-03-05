@@ -25,7 +25,6 @@
  **/
 
 namespace block_fastnav\traits;
-defined('MOODLE_INTERNAL') || die;
 
 use coding_exception;
 use dml_exception;

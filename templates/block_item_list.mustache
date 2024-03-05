@@ -45,7 +45,9 @@
             <li>
                 <a href="{{link}}" rel="noreferrer" data-placement="left" title="{{name}}">
                     <figure>
-                        <img src="{{icon}}" alt="{{name}}" class="block-fastnav-icon">
+                        {{#icon}}
+                            <img src="{{icon}}" alt="{{name}}" class="block-fastnav-icon">
+                        {{/icon}}
                         <span class="block-fastnav-name">
                             {{name}}
                         </span>

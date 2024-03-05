@@ -33,6 +33,11 @@ use external_single_structure;
 use external_value;
 use external_warnings;
 
+defined('MOODLE_INTERNAL') || die;
+
+global $CFG;
+require_once("$CFG->libdir/externallib.php");
+
 /**
  * Class external.
  *

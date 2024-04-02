@@ -29,7 +29,10 @@ Types of changes
 * **Removed** for now removed features.
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
-* 
+
+## Version (4.2.0) - 2024-03-05
+- updated and refactored for Moodle 4.2
+
 ## Version (4.1) - 2023-03-16
 
 #### Added

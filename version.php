@@ -23,10 +23,12 @@
  * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
+
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2023031600;
+$plugin->version = 2024032700;
 $plugin->requires = 2020050600;
+$plugin->supported = [39, 402];
 $plugin->component = 'block_fastnav';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '4.1.0';
+$plugin->release = '4.2.0';

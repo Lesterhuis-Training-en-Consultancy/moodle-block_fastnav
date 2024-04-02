@@ -30,10 +30,10 @@
  * @param stdClass $course
  * @param stdClass $recordorcm
  * @param stdClass $context
- * @param string   $filearea
- * @param array    $args
- * @param bool     $forcedownload
- * @param array    $options
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @param array $options
  *
  * @throws coding_exception
  * @throws moodle_exception
@@ -42,7 +42,7 @@
 function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $args, $forcedownload, array $options = []) {
     global $CFG;
 
-    if ($context->contextlevel != CONTEXT_BLOCK) {
+    if ($context->contextlevel !== CONTEXT_BLOCK) {
         send_file_not_found();
     }
 
@@ -63,11 +63,12 @@ function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $ar
     }
 
     $fs = get_file_storage();
-    $itemid = (int)array_shift($args);
+    $itemid = (int) array_shift($args);
     $filename = array_pop($args);
 
-    if (!$file = $fs->get_file($context->id, 'block_fastnav', $filearea, $itemid, '/',
-            $filename) or $file->is_directory()) {
+    $file = $fs->get_file($context->id, 'block_fastnav', $filearea, $itemid, '/', $filename);
+
+    if (!$file || $file->is_directory()) {
         send_file_not_found();
     }
 

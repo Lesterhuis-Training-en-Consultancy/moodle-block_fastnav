@@ -25,7 +25,6 @@
  **/
 
 namespace block_fastnav;
-defined('MOODLE_INTERNAL') || die;
 
 use block_fastnav\traits\database_model;
 use context_block;
@@ -49,7 +48,7 @@ class item {
     /**
      * @var string
      */
-    static protected $table = 'block_fastnav';
+    static protected string $table = 'block_fastnav';
 
     /**
      * linkitem constructor.
@@ -159,6 +158,10 @@ class item {
         $fs = get_file_storage();
         $files = $fs->get_area_files($this->get('contextid'), 'block_fastnav', 'link_icon', $this->get_id());
         foreach ($files as $file) {
+
+            if ($file->get_filename() === '.') {
+                continue;
+            }
 
             if ($file->is_valid_image() === false) {
                 continue;

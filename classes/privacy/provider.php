@@ -23,9 +23,8 @@
  * @copyright 16/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
-namespace block_fastnav\privacy;
 
-defined('MOODLE_INTERNAL') || die();
+namespace block_fastnav\privacy;
 
 /**
  * Privacy Subsystem for block_fastnav implementing null_provider.
@@ -43,7 +42,8 @@ class provider implements \core_privacy\local\metadata\null_provider {
      *
      * @return  string
      */
-    public static function get_reason() : string {
+    public static function get_reason(): string {
         return 'privacy:metadata';
     }
+
 }

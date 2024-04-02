@@ -158,3 +158,8 @@ nav.block-fastnav-sidebar .block-fastnav-opener {
     margin: 10px 0 0 -25px;
     cursor: pointer;
 }
+
+#page-blocks-fastnav-view-edit .fastnavedittable td img {
+    max-width: 30px;
+    max-height: 30px;
+}

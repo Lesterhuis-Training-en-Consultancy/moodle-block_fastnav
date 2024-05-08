@@ -111,12 +111,6 @@ class block_fastnav extends block_base {
         // Allow ajax call.
         $USER->ajax_updatable_user_prefs['block_fastnav_open'] = true;
 
-        // Not visible on course view page.
-        if ($this->page->user_is_editing() === false
-            && $this->page->url->get_path() === '/course/view.php') {
-            return $this->content;
-        }
-
         if (has_capability('block/fastnav:management', $this->context)
             && $this->page->user_is_editing()) {
             $this->content->text .= $renderer->get_management_buttons($this);

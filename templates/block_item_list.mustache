@@ -48,7 +48,7 @@
                         {{#icon}}
                             <img src="{{icon}}" alt="{{name}}" class="block-fastnav-icon">
                         {{/icon}}
-                        <span class="block-fastnav-name">
+                        <span class="block-fastnav-name" {{^icon}}style="display: unset;"{{/icon}}>
                             {{name}}
                         </span>
                     </figure>

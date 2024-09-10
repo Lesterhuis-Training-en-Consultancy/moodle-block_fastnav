@@ -26,18 +26,18 @@
 require_once(__DIR__ . '/../../../config.php');
 require_login();
 
-$instanceid = required_param('instanceid', PARAM_INT);
-$courseid = required_param('courseid', PARAM_INT);
-$action = optional_param('action', '', PARAM_ALPHA);
-$id = optional_param('id', false, PARAM_INT);
+$instanceid = required_param(parname: 'instanceid', type: PARAM_INT);
+$courseid = required_param(parname: 'courseid', type: PARAM_INT);
+$action = optional_param(parname: 'action', default: '', type: PARAM_ALPHA);
+$id = optional_param(parname: 'id', default: false, type: PARAM_INT);
 
 $blockcontext = context_block::instance($instanceid);
 
 // Security check.
-require_capability('block/fastnav:management', $blockcontext);
+require_capability(capability: 'block/fastnav:management', context: $blockcontext);
 
 $PAGE->set_context($blockcontext);
-$PAGE->set_url('/blocks/fastnav/view/edit.php', [
+$PAGE->set_url(url: '/blocks/fastnav/view/edit.php', params: [
     'instanceid' => $instanceid,
     'courseid' => $courseid,
     'action' => $action,
@@ -45,28 +45,28 @@ $PAGE->set_url('/blocks/fastnav/view/edit.php', [
 ]);
 
 $PAGE->set_heading($SITE->fullname);
-$PAGE->set_pagelayout('course');
+$PAGE->set_pagelayout(pagelayout: 'course');
 
-$parentcourse = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
-$PAGE->navbar->add(ucfirst($parentcourse->fullname), new moodle_url('/course/view.php', ['id' => $parentcourse->id]));
-$PAGE->navbar->add(get_string('heading:overview', 'block_fastnav'));
+$parentcourse = $DB->get_record(table: 'course', conditions: ['id' => $courseid], strictness: MUST_EXIST);
+$PAGE->navbar->add(ucfirst($parentcourse->fullname), new moodle_url(url: '/course/view.php', params: ['id' => $parentcourse->id]));
+$PAGE->navbar->add(get_string(identifier: 'heading:overview', component: 'block_fastnav'));
 
-$renderer = $PAGE->get_renderer('block_fastnav');
+$renderer = $PAGE->get_renderer(component: 'block_fastnav');
 $item = new \block_fastnav\item($id);
 
 $baseurl = clone $PAGE->url;
-$baseurl->param('action', '');
-$baseurl->param('id', '');
+$baseurl->param(paramname: 'action', newvalue: '');
+$baseurl->param(paramname: 'id', newvalue: '');
 
 switch ($action) {
 
     case 'up':
-        $item->change_sortorder(-1);
+        $item->change_sortorder(direction: -1);
         redirect($baseurl);
         break;
 
     case 'down':
-        $item->change_sortorder(1);
+        $item->change_sortorder(direction: 1);
         redirect($baseurl);
         break;
 

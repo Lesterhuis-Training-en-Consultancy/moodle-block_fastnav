@@ -40,10 +40,9 @@ class block_fastnav extends block_base {
     /**
      * Init
      *
-     * @throws coding_exception
      */
     public function init(): void {
-        $this->title = get_string('pluginname', 'block_fastnav');
+        $this->title = get_string(identifier: 'pluginname', component: 'block_fastnav');
     }
 
     /**
@@ -73,16 +72,15 @@ class block_fastnav extends block_base {
     /**
      * Specialization
      *
-     * @throws coding_exception
      */
     public function specialization(): void {
         if (isset($this->config->title)) {
-            $this->title = format_string($this->config->title, true, ['context' => $this->context]);
+            $this->title = format_string(string: $this->config->title, options: ['context' => $this->context]);
 
             return;
         }
 
-        $this->title = get_string('pluginname', 'block_fastnav');
+        $this->title = get_string(identifier: 'pluginname', component: 'block_fastnav');
     }
 
     /**
@@ -91,8 +89,6 @@ class block_fastnav extends block_base {
      * the content object.
      *
      * @return object
-     * @throws coding_exception
-     * @throws moodle_exception
      */
     public function get_content(): object {
         global $CFG, $USER;
@@ -106,12 +102,12 @@ class block_fastnav extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        $renderer = $this->page->get_renderer('block_fastnav');
+        $renderer = $this->page->get_renderer(component: 'block_fastnav');
 
         // Allow ajax call.
         $USER->ajax_updatable_user_prefs['block_fastnav_open'] = true;
 
-        if (has_capability('block/fastnav:management', $this->context)
+        if (has_capability(capability: 'block/fastnav:management', context: $this->context)
             && $this->page->user_is_editing()) {
             $this->content->text .= $renderer->get_management_buttons($this);
         }
@@ -127,10 +123,10 @@ class block_fastnav extends block_base {
         }
 
         if ($this->can_display_sidebar()) {
-            $this->page->requires->js_call_amd('block_fastnav/sidebar', 'init', [
+            $this->page->requires->js_call_amd(fullmodule: 'block_fastnav/sidebar', func: 'init', params: [
                 [
                     'instanceid' => $this->context->instanceid,
-                    'open' => get_user_preferences('block_fastnav_open'),
+                    'open' => get_user_preferences(name: 'block_fastnav_open'),
                 ],
             ]);
         }
@@ -142,14 +138,13 @@ class block_fastnav extends block_base {
      * Instance delete
      *
      * @return bool
-     * @throws dml_exception
      */
     public function instance_delete(): bool {
         global $DB;
 
         $fs = get_file_storage();
-        $fs->delete_area_files($this->context->id, 'block_fastnav');
-        $DB->delete_records('block_fastnav', ['contextid' => $this->context->id]);
+        $fs->delete_area_files(contextid: $this->context->id, component: 'block_fastnav');
+        $DB->delete_records(table: 'block_fastnav', conditions: ['contextid' => $this->context->id]);
 
         return true;
     }
@@ -158,14 +153,13 @@ class block_fastnav extends block_base {
      * Do any additional initialization you may need at the time a new block instance is created
      *
      * @return boolean
-     * @throws dml_exception
      */
     public function instance_create(): bool {
         global $DB, $COURSE;
 
         if (!empty($COURSE->id) && $COURSE->id > 1) {
             // Update default to course-*.
-            $DB->update_record('block_instances', (object) [
+            $DB->update_record(table: 'block_instances', dataobject: (object) [
                 'id' => $this->instance->id,
                 'pagetypepattern' => '*', // Any page.
                 'showinsubcontexts' => 1,

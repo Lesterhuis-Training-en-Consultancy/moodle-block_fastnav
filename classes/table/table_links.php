@@ -109,10 +109,9 @@ class table_links extends table_sql {
      * @param item $item
      *
      * @return string
-     * @throws coding_exception
      */
     public function col_icon(item $item): string {
-        return html_writer::img($item->icon(), '');
+        return html_writer::img(src: $item->icon(), alt: '');
     }
 
     /**
@@ -121,7 +120,6 @@ class table_links extends table_sql {
      * @param item $item
      *
      * @return string
-     * @throws moodle_exception
      */
     public function col_link(item $item): string {
         return $item->link();
@@ -155,8 +153,6 @@ class table_links extends table_sql {
      * @param item $item
      *
      * @return string
-     * @throws coding_exception
-     * @throws moodle_exception
      */
     public function col_action(item $item): string {
         global $PAGE;
@@ -168,21 +164,35 @@ class table_links extends table_sql {
             'id' => $item->id(),
         ]);
 
+        $btn = 'btn btn-sm btn-primary';
+
         $list = [
-            html_writer::link(new moodle_url($PAGE->url->get_path(), ['action' => 'down'] + $params),
-                '<i class="fa fa-arrow-down"></i>', ['class' => 'btn btn-sm btn-primary']),
+            html_writer::link(
+                url: new moodle_url(url: $PAGE->url->get_path(), params: ['action' => 'down'] + $params),
+                text: '<i class="fa fa-arrow-down"></i>',
+                attributes: ['class' => $btn]
+            ),
 
-            html_writer::link(new moodle_url($PAGE->url->get_path(), ['action' => 'up'] + $params),
-                '<i class="fa fa-arrow-up"></i>', ['class' => 'btn btn-sm btn-primary']),
+            html_writer::link(
+                url: new moodle_url(url: $PAGE->url->get_path(), params: ['action' => 'up'] + $params),
+                text: '<i class="fa fa-arrow-up"></i>',
+                attributes: ['class' => $btn]
+            ),
 
-            html_writer::link(new moodle_url($PAGE->url->get_path(), ['action' => 'edit'] + $params),
-                get_string('btn:edit', 'block_fastnav'), ['class' => 'btn btn-sm btn-primary']),
+            html_writer::link(
+                url: new moodle_url(url: $PAGE->url->get_path(), params: ['action' => 'edit'] + $params),
+                text: get_string(identifier: 'btn:edit', component: 'block_fastnav'),
+                attributes: ['class' => $btn]
+            ),
 
-            html_writer::link(new moodle_url($PAGE->url->get_path(), ['action' => 'delete'] + $params),
-                '<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger btn-sm delete']),
+            html_writer::link(
+                url: new moodle_url(url: $PAGE->url->get_path(), params: ['action' => 'delete'] + $params),
+                text: '<i class="fa fa-trash"></i>',
+                attributes: ['class' => 'btn btn-danger btn-sm delete']
+            ),
         ];
 
-        return implode(' ', $list);
+        return implode(separator: ' ', array: $list);
     }
 
 }

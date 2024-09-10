@@ -35,8 +35,7 @@
  * @param bool $forcedownload
  * @param array $options
  */
-function block_fastnav_pluginfile(stdClass $course, $recordorcm, stdClass $context, string $filearea, array $args, $forcedownload,
-    array $options = []): void {
+function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $args, $forcedownload, array $options = []) {
     global $CFG;
 
     if ($context->contextlevel !== CONTEXT_BLOCK) {

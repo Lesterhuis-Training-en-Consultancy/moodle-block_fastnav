@@ -56,9 +56,6 @@ class external extends external_api {
      * @param int $instanceid
      *
      * @return array
-     * @throws \coding_exception
-     * @throws \dml_exception
-     * @throws \invalid_parameter_exception
      */
     public static function get_items(int $instanceid): array {
         $warnings = [];

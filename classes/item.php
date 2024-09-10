@@ -54,8 +54,6 @@ class item {
      * linkitem constructor.
      *
      * @param int $id
-     *
-     * @throws dml_exception
      */
     public function __construct(int $id = 0) {
         global $DB;
@@ -92,7 +90,6 @@ class item {
      * @param int $instanceid
      *
      * @return int
-     * @throws dml_exception
      */
     public function get_new_sortorder(int $instanceid = 0): int {
         global $DB;
@@ -112,7 +109,6 @@ class item {
      * @param context_block $context
      *
      * @return bool
-     * @throws dml_exception
      */
     public function save(stdClass $formdata, context_block $context): bool {
 
@@ -154,7 +150,6 @@ class item {
      * Get item icon
      *
      * @return string
-     * @throws \coding_exception
      */
     public function icon(): string {
 
@@ -192,7 +187,6 @@ class item {
      * Get link
      *
      * @return string
-     * @throws \moodle_exception
      */
     public function link(): string {
         return new moodle_url(url: $this->record->link ?? '');
@@ -204,7 +198,6 @@ class item {
      * @param array $conditions
      *
      * @return array
-     * @throws dml_exception
      */
     public static function get_items(array $conditions): array {
         global $DB;

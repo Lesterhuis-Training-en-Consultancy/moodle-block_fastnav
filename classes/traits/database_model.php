@@ -71,7 +71,6 @@ trait database_model {
      * @param string $name
      *
      * @return null|mixed
-     * @throws Exception
      */
     public function get(string $name = '') {
 
@@ -79,7 +78,7 @@ trait database_model {
             return $this->record->$name;
         }
 
-        debugging('Missing  ' . self::get_class() . '->record->' . $name);
+        debugging(message: 'Missing  ' . self::get_class() . '->record->' . $name);
 
         return null;
     }
@@ -123,7 +122,6 @@ trait database_model {
      * Create a record
      *
      * @return int
-     * @throws dml_exception
      */
     public function create(): int {
         global $DB;
@@ -153,8 +151,6 @@ trait database_model {
      * Update record to the DB
      *
      * @return int
-     *
-     * @throws \dml_exception
      */
     public function update(): int {
         global $DB;
@@ -173,15 +169,14 @@ trait database_model {
      * Get the class of the item
      *
      * @return string
-     * @throws Exception
      */
     public static function get_class(): string {
 
         try {
-            $reflect = new ReflectionClass(static::class);
+            $reflect = new ReflectionClass(objectOrClass: static::class);
             $class = $reflect->getShortName();
         } catch (ReflectionException $exception) {
-            throw new Exception(' Fatal Error get_class() should always exists!');
+            throw new Exception(message: ' Fatal Error get_class() should always exists!');
         }
 
         return $class;
@@ -191,7 +186,6 @@ trait database_model {
      * Delete a record
      *
      * @return bool
-     * @throws \dml_exception
      */
     public function delete(): bool {
         global $DB;
@@ -208,32 +202,30 @@ trait database_model {
      * @param array $conditions used for getting matching records
      *
      * @return bool
-     * @throws coding_exception
-     * @throws dml_exception
      */
     public function change_sortorder(int $direction, array $conditions = []): bool {
         global $DB;
 
         if ($direction !== -1 && $direction !== 1) {
-            throw new coding_exception('Second argument in change_sortorder() can be only 1 or -1');
+            throw new coding_exception(hint: 'Second argument in change_sortorder() can be only 1 or -1');
         }
 
-        $records = $DB->get_records(self::$table, $conditions, 'sortorder ASC');
+        $records = $DB->get_records(table: self::$table, conditions: $conditions, sort: 'sortorder ASC');
 
         $keys = array_keys($records);
-        $idx = array_search($this->get_id(), $keys, false);
+        $idx = array_search(needle: $this->get_id(), haystack: $keys);
 
         if ($idx === false || $idx + $direction < 0 || $idx + $direction >= count($records)) {
             return false;
         }
         $otherid = $keys[$idx + $direction];
 
-        $DB->update_record(self::$table, (object) [
+        $DB->update_record(table: self::$table, dataobject: (object) [
             'id' => $this->get_id(),
             'sortorder' => $idx + $direction,
         ]);
 
-        $DB->update_record(self::$table, (object) [
+        $DB->update_record(table: self::$table, dataobject: (object) [
             'id' => $otherid,
             'sortorder' => $idx,
         ]);

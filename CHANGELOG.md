@@ -30,6 +30,9 @@ Types of changes
 * **Fixed** for any bug fixes.
 * **Security** in case of vulnerabilities.
 
+## Version (4.5.0) - 2024-09-10
+- Tested for Moodle 4.5 and PHP 8.1
+
 ## Version (4.4.0) - 2024-04-05
 - Tested for Moodle 4.4 and PHP 8.1
 - Show link when no icon is used in floating menu

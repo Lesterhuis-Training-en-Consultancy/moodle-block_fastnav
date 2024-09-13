@@ -78,3 +78,24 @@ function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $ar
     \core\session\manager::write_close();
     send_stored_file(storedfile: $file, forcedownload: true, options: $options);
 }
+
+/**
+ * Defines the user preferences for the Fast Navigation block.
+ *
+ * @return array
+ */
+function block_fastnav_user_preferences(): array {
+    $preferences = [];
+
+    // Define the 'block_fastnav_open' preference.
+    $preferences['block_fastnav_open'] = [
+        'type' => PARAM_INT,            // Using PARAM_INT to accept integer values.
+        'null' => NULL_NOT_ALLOWED,     // Null values are not allowed.
+        'default' => 0,                 // Default value is 0 (closed).
+        'choices' => [0, 1],            // Valid values are 0 (closed) and 1 (open).
+    ];
+
+    return $preferences;
+}
+
+

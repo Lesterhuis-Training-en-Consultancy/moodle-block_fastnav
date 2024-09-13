@@ -18,12 +18,11 @@
  *
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @package   block_fastnav
  * @copyright 17/07/2020 Mfreak.nl | LdesignMedia.nl - Luuk Verhoeven
  * @author    Luuk Verhoeven
  **/
-define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates', 'core/config'],
-    function($, Ajax, Log, Notification, Templates) {
+define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates', 'core/config', 'core_user/repository'],
+    function($, Ajax, Log, Notification, Templates, setUserPreference, UserRepository) {
         'use strict';
 
         var sidebar = {
@@ -162,7 +161,8 @@ define(['jquery', 'core/ajax', 'core/log', 'core/notification', 'core/templates'
              * @param {string} status
              */
             updateOpenPreference: function(status) {
-                M.util.set_user_preference('block_fastnav_open', status);
+                return UserRepository.setUserPreference(`block_fastnav_open`, status)
+                .catch(Notification.exception);
             }
         };
 

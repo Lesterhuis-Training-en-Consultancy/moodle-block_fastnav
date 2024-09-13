@@ -26,9 +26,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2024091001;
+$plugin->version = 2024091300;
 $plugin->requires = 2020050600;
-$plugin->supported = [405, 405];
+$plugin->supported = [39, 405];
 $plugin->component = 'block_fastnav';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '4.5.0';

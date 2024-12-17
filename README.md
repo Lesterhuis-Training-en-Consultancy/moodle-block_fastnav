@@ -1,7 +1,7 @@
 ## a Moodle block for better course navigation
 
 In brief, the MFreak block `fastnav` gives users the ability to navigate more easily inside a course.
- 
+
 Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://ltnc.nl/)) for develop & design, useful input, bug reports and beta testing
 
 ![Ldesign.nl](https://ldesign.nl/logo_small.png)
@@ -10,7 +10,7 @@ Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://
 * Author: Luuk Verhoeven, [MFreak.nl](https://MFreak.nl/)
 * Author: Gemma Lesterhuis, [Lesterhuis Training & Consultancy](https://ltnc.nl/)
 * Min. required: Moodle 3.9.
-* Max: 4.4
+* Max: 4.5
 * Supports PHP: 7.2, 7.3, 7.4, 8.0, 8.1
 
 ![Moodle39](https://img.shields.io/badge/moodle-3.9-brightgreen.svg)
@@ -19,6 +19,7 @@ Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://
 ![Moodle42](https://img.shields.io/badge/moodle-4.2-brightgreen.svg)
 ![Moodle43](https://img.shields.io/badge/moodle-4.3-brightgreen.svg)
 ![Moodle44](https://img.shields.io/badge/moodle-4.4-brightgreen.svg)
+![Moodle45](https://img.shields.io/badge/moodle-4.5-brightgreen.svg)
 
 ![PHP7.4](https://img.shields.io/badge/PHP-7.4-blue.svg)
 ![PHP8.0](https://img.shields.io/badge/PHP-8.0-blue.svg)

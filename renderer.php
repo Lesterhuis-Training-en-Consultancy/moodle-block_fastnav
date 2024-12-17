@@ -45,15 +45,13 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * @param block_fastnav $block
      *
      * @return string
-     * @throws coding_exception
-     * @throws moodle_exception
      */
     public function get_management_buttons(\block_fastnav $block) : string {
-        return html_writer::link(new moodle_url('/blocks/fastnav/view/edit.php', [
+        return html_writer::link(new moodle_url(url: '/blocks/fastnav/view/edit.php', params: [
             'instanceid' => $block->instance->id,
             'courseid' => $block->page->course->id,
         ]),
-            get_string('btn:edit', 'block_fastnav'), [
+            get_string(identifier: 'btn:edit', component: 'block_fastnav'), [
                 'class' => 'btn btn-primary',
             ]);
     }
@@ -62,14 +60,13 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * get_edit_link_table
      *
      * @return string
-     * @throws coding_exception
      */
     public function get_edit_link_table() : string {
 
-        $table = new block_fastnav\table\table_links(__CLASS__, $this->page->context->instanceid);
-        $table->set_attribute('cellspacing', '0');
-        $table->set_attribute('class', 'generaltable generalbox reporttable fastnavedittable');
-        $table->initialbars(true);
+        $table = new block_fastnav\table\table_links(uniqueid: __CLASS__, blockinstanceid: $this->page->context->instanceid);
+        $table->set_attribute(attribute: 'cellspacing', value: '0');
+        $table->set_attribute(attribute: 'class', value: 'generaltable generalbox reporttable fastnavedittable');
+        $table->initialbars(bool: true);
         $table->define_baseurl($this->page->url);
 
         // Set columns.
@@ -82,13 +79,13 @@ class block_fastnav_renderer extends plugin_renderer_base {
 
         $table->define_columns($columns);
         $table->define_headers(array_map(static function ($val) {
-            return get_string('heading:table_' . $val, 'block_fastnav');
+            return get_string(identifier: 'heading:table_' . $val, component: 'block_fastnav');
         }, $columns));
 
-        $table->sortable(false, SORT_ASC);
-        $table->collapsible(false);
+        $table->sortable(bool: false, defaultcolumn: SORT_ASC);
+        $table->collapsible(bool: false);
 
-        $table->out(100, true);
+        $table->out(pagesize: 100, useinitialsbar: true);
 
         return ob_get_clean();
     }
@@ -97,15 +94,21 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * get_edit_button
      *
      * @return string
-     * @throws coding_exception
-     * @throws moodle_exception
      */
     public function get_edit_button() : string {
         $params = $this->page->url->params();
 
-        return $this->render_from_template('block_fastnav/edit_management', [
-            'link' => (new moodle_url('/blocks/fastnav/view/edit.php', array_merge($params, ['action' => 'edit'])))->out(false),
-        ]);
+        return $this->render_from_template(
+            templatename: 'block_fastnav/edit_management',
+            context: [
+                'link' => (
+                    new moodle_url(
+                    url: '/blocks/fastnav/view/edit.php',
+                    params: array_merge($params, ['action' => 'edit'])
+                    )
+                )->out(escaped: false),
+            ]
+        );
     }
 
     /**
@@ -114,7 +117,6 @@ class block_fastnav_renderer extends plugin_renderer_base {
      * @param context_block $context
      *
      * @return string
-     * @throws moodle_exception
      */
     public function get_block_item_list(context_block $context) : string {
 
@@ -125,7 +127,7 @@ class block_fastnav_renderer extends plugin_renderer_base {
             return '';
         }
 
-        return $this->render_from_template('block_fastnav/block_item_list', $templatedata);
+        return $this->render_from_template(templatename: 'block_fastnav/block_item_list', context: $templatedata);
     }
 
 }

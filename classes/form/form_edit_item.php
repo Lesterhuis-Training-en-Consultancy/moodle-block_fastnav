@@ -30,6 +30,7 @@ defined('MOODLE_INTERNAL') || die;
 global $CFG;
 
 use block_fastnav\helper;
+use core_privacy\local\metadata\types\type;
 
 require_once($CFG->libdir . '/formslib.php');
 
@@ -82,27 +83,28 @@ class form_edit_item extends \moodleform {
 
     /**
      * Form definition
-     *
-     * @throws \coding_exception
      */
     protected function definition() : void {
         $mform = &$this->_form;
 
-        $mform->addElement('text', 'name', get_string('form:name', 'block_fastnav'), []);
-        $mform->setType('name', PARAM_TEXT);
+        $mform->addElement('text', 'name', get_string(identifier: 'form:name', component: 'block_fastnav'), []);
+        $mform->setType(elementname: 'name', paramtype: PARAM_TEXT);
 
-        $mform->addElement('text', 'link', get_string('form:link', 'block_fastnav'), []);
-        $mform->setType('link', PARAM_URL);
+        $mform->addElement('text', 'link', get_string(identifier: 'form:link', component: 'block_fastnav'), []);
+        $mform->setType(elementname: 'link', paramtype: PARAM_URL);
 
         $mform->addElement('filepicker', 'link_icon',
-            get_string('form:link_icon', 'block_fastnav'), null, helper::get_file_options());
+            get_string(identifier: 'form:link_icon', component: 'block_fastnav'), null, helper::get_file_options());
 
         // Rules.
-        $mform->addRule('name', get_string('required'), 'required', 255, 'client');
-        $mform->addRule('link', get_string('required'), 'required', 255, 'client');
-        $mform->addRule('link', get_string('required'), 'required', 255, 'client');
+        $mform->addRule(element: 'name', message: get_string(identifier: 'required'), type: 'required', format: 255,
+            validation: 'client');
+        $mform->addRule(element: 'link', message: get_string(identifier: 'required'), type: 'required', format: 255,
+            validation: 'client');
+        $mform->addRule(element: 'link', message: get_string(identifier: 'required'), type: 'required', format: 255,
+            validation: 'client');
 
-        $this->add_action_buttons(false, get_string('btn:update', 'block_fastnav'));
+        $this->add_action_buttons(cancel: false, submitlabel: get_string(identifier: 'btn:update', component: 'block_fastnav'));
     }
 
     /**
@@ -112,14 +114,14 @@ class form_edit_item extends \moodleform {
      */
     public function definition_after_data() : void {
 
-        $draftitemid = file_get_submitted_draft_itemid('link_icon');
+        $draftitemid = file_get_submitted_draft_itemid(elname: 'link_icon');
         file_prepare_draft_area(
-            $draftitemid,
-            $this->blockcontext->id,
-            'block_fastnav',
-            'link_icon',
-            $this->item->get_id(),
-            helper::get_file_options()
+            draftitemid: $draftitemid,
+            contextid: $this->blockcontext->id,
+            component: 'block_fastnav',
+            filearea: 'link_icon',
+            itemid: $this->item->get_id(),
+            options: helper::get_file_options()
         );
 
         // Set data.

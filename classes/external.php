@@ -56,9 +56,6 @@ class external extends external_api {
      * @param int $instanceid
      *
      * @return array
-     * @throws \coding_exception
-     * @throws \dml_exception
-     * @throws \invalid_parameter_exception
      */
     public static function get_items(int $instanceid): array {
         $warnings = [];
@@ -68,7 +65,7 @@ class external extends external_api {
         ]);
 
         return [
-            'open' => get_user_preferences('block_fastnav_open', false),
+            'open' => get_user_preferences(name: 'block_fastnav_open', default: false),
             'items' => array_map(static function($item) {
                 return [
                     'id' => $item->get_id(),
@@ -89,7 +86,7 @@ class external extends external_api {
     public static function get_items_parameters(): external_function_parameters {
         return new external_function_parameters(
             [
-                'instanceid' => new external_value(PARAM_INT, 'Block instance id'),
+                'instanceid' => new external_value(type: PARAM_INT, desc: 'Block instance id'),
             ]
         );
     }
@@ -102,14 +99,14 @@ class external extends external_api {
     public static function get_items_returns(): external_single_structure {
         return new external_single_structure(
             [
-                'open' => new external_value(PARAM_BOOL, 'Check if fastnav is locked (open) state'),
+                'open' => new external_value(type: PARAM_BOOL, desc: 'Check if fastnav is locked (open) state'),
                 'items' => new external_multiple_structure(
                     new external_single_structure(
                         [
-                            'id' => new external_value(PARAM_INT, 'The item ID.'),
-                            'icon' => new external_value(PARAM_RAW, 'The item icon.'),
-                            'name' => new external_value(PARAM_TEXT, 'The item name'),
-                            'link' => new external_value(PARAM_URL, 'The item link'),
+                            'id' => new external_value(type: PARAM_INT, desc: 'The item ID.'),
+                            'icon' => new external_value(type: PARAM_RAW, desc: 'The item icon.'),
+                            'name' => new external_value(type: PARAM_TEXT, desc: 'The item name'),
+                            'link' => new external_value(type: PARAM_URL, desc: 'The item link'),
                         ]
                     )
                 ),

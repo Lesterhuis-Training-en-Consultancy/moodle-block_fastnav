@@ -47,12 +47,17 @@ class block_fastnav_edit_form extends block_edit_form {
     protected function specific_definition($mform) : void {
 
         $options = [
-            helper::SHOW_BLOCK_AND_SIDEBAR => get_string('form:show_block_and_sidebar', 'block_fastnav'),
-            helper::SHOW_SIDEBAR => get_string('form:show_sidebar', 'block_fastnav'),
-            helper::SHOW_BLOCK_ONLY => get_string('form:show_block', 'block_fastnav'),
+            helper::SHOW_BLOCK_AND_SIDEBAR => get_string(identifier: 'form:show_block_and_sidebar', component: 'block_fastnav'),
+            helper::SHOW_SIDEBAR => get_string(identifier: 'form:show_sidebar', component: 'block_fastnav'),
+            helper::SHOW_BLOCK_ONLY => get_string(identifier: 'form:show_block', component: 'block_fastnav'),
         ];
 
-        $mform->addElement('select', 'config_display_modus', get_string('form:display_modus', 'block_fastnav'), $options);
+        $mform->addElement(
+            'select',
+            'config_display_modus',
+            get_string(identifier: 'form:display_modus', component: 'block_fastnav'),
+            $options
+        );
         $mform->setType('config_display_modus', PARAM_INT);
     }
 }

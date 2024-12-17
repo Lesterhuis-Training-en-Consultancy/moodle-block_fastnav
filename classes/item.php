@@ -54,8 +54,6 @@ class item {
      * linkitem constructor.
      *
      * @param int $id
-     *
-     * @throws dml_exception
      */
     public function __construct(int $id = 0) {
         global $DB;
@@ -64,7 +62,7 @@ class item {
             return;
         }
 
-        $record = $DB->get_record(self::$table, ['id' => $id], '*', MUST_EXIST);
+        $record = $DB->get_record(table: self::$table, conditions: ['id' => $id], strictness: MUST_EXIST);
         $this->set_record($record);
     }
 
@@ -92,15 +90,16 @@ class item {
      * @param int $instanceid
      *
      * @return int
-     * @throws dml_exception
      */
     public function get_new_sortorder(int $instanceid = 0): int {
         global $DB;
 
-        return (int) $DB->get_field_select(self::$table,
-                'MAX(sortorder)',
-                "blockinstanceid = ?",
-                [$instanceid]) + 1;
+        return (int) $DB->get_field_select(
+            table: self::$table,
+            return: 'MAX(sortorder)',
+            select: "blockinstanceid = ?",
+            params:[$instanceid]
+            ) + 1;
     }
 
     /**
@@ -110,7 +109,6 @@ class item {
      * @param context_block $context
      *
      * @return bool
-     * @throws dml_exception
      */
     public function save(stdClass $formdata, context_block $context): bool {
 
@@ -127,12 +125,13 @@ class item {
             return false;
         }
 
-        file_save_draft_area_files($formdata->link_icon,
-            $context->id,
-            'block_fastnav',
-            'link_icon',
-            $id,
-            helper::get_file_options());
+        file_save_draft_area_files(
+            draftitemid: $formdata->link_icon,
+            contextid: $context->id,
+            component: 'block_fastnav',
+            filearea: 'link_icon',
+            itemid: $id,
+            options: helper::get_file_options());
 
         return true;
     }
@@ -151,12 +150,16 @@ class item {
      * Get item icon
      *
      * @return string
-     * @throws \coding_exception
      */
     public function icon(): string {
 
         $fs = get_file_storage();
-        $files = $fs->get_area_files($this->get('contextid'), 'block_fastnav', 'link_icon', $this->get_id());
+        $files = $fs->get_area_files(
+            contextid: $this->get('contextid'),
+            component: 'block_fastnav',
+            filearea: 'link_icon',
+            itemid: $this->get_id()
+        );
         foreach ($files as $file) {
 
             if ($file->get_filename() === '.') {
@@ -184,10 +187,9 @@ class item {
      * Get link
      *
      * @return string
-     * @throws \moodle_exception
      */
     public function link(): string {
-        return new moodle_url($this->record->link ?? '');
+        return new moodle_url(url: $this->record->link ?? '');
     }
 
     /**
@@ -196,14 +198,13 @@ class item {
      * @param array $conditions
      *
      * @return array
-     * @throws dml_exception
      */
     public static function get_items(array $conditions): array {
         global $DB;
 
         $items = [];
 
-        $rs = $DB->get_recordset(self::$table, $conditions, 'sortorder ASC');
+        $rs = $DB->get_recordset(table: self::$table, conditions: $conditions, sort: 'sortorder ASC');
         foreach ($rs as $item) {
             // Mapping.
             $items[$item->id] = (new self())->set_record($item);

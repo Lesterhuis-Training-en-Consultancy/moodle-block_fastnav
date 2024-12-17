@@ -34,10 +34,6 @@
  * @param array $args
  * @param bool $forcedownload
  * @param array $options
- *
- * @throws coding_exception
- * @throws moodle_exception
- * @throws require_login_exception
  */
 function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $args, $forcedownload, array $options = []) {
     global $CFG;
@@ -57,21 +53,49 @@ function block_fastnav_pluginfile($course, $recordorcm, $context, $filearea, $ar
         $parentcontext = $context->get_parent_context();
         // Check if category is visible and user can view this category.
         if (($parentcontext->contextlevel === CONTEXT_COURSECAT)
-            && !core_course_category::get($parentcontext->instanceid, IGNORE_MISSING)) {
+            && !core_course_category::get(id: $parentcontext->instanceid, strictness: IGNORE_MISSING)) {
             send_file_not_found();
         }
     }
 
     $fs = get_file_storage();
-    $itemid = (int) array_shift($args);
-    $filename = array_pop($args);
+    $itemid = (int) array_shift(array: $args);
+    $filename = array_pop(array: $args);
 
-    $file = $fs->get_file($context->id, 'block_fastnav', $filearea, $itemid, '/', $filename);
+    $file = $fs->get_file(
+        contextid: $context->id,
+        component: 'block_fastnav',
+        filearea: $filearea,
+        itemid: $itemid,
+        filepath: '/',
+        filename: $filename
+    );
 
     if (!$file || $file->is_directory()) {
         send_file_not_found();
     }
 
     \core\session\manager::write_close();
-    send_stored_file($file, null, 0, true, $options);
+    send_stored_file(storedfile: $file, forcedownload: true, options: $options);
 }
+
+/**
+ * Defines the user preferences for the Fast Navigation block.
+ *
+ * @return array
+ */
+function block_fastnav_user_preferences(): array {
+    $preferences = [];
+
+    // Define the 'block_fastnav_open' preference.
+    $preferences['block_fastnav_open'] = [
+        'type' => PARAM_INT,            // Using PARAM_INT to accept integer values.
+        'null' => NULL_NOT_ALLOWED,     // Null values are not allowed.
+        'default' => 0,                 // Default value is 0 (closed).
+        'choices' => [0, 1],            // Valid values are 0 (closed) and 1 (open).
+    ];
+
+    return $preferences;
+}
+
+

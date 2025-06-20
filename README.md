@@ -1,11 +1,9 @@
 ## a Moodle block for better course navigation
 
-In brief, the MFreak block `fastnav` gives users the ability to navigate more easily inside a course.
+Block `fastnav` gives users the ability to navigate more easily inside a course.
 
-Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://ltnc.nl/)) for develop & design, useful input, bug reports and beta testing
+![Lesterhuis Training & Consultancy](https://ltnc.nl/wp-content/uploads/2025/04/LTNC_fc_pos_zwart.png)
 
-![Ldesign.nl](https://ldesign.nl/logo_small.png)
-![Lesterhuis Training & Consultancy](https://ldesign.nl/logo_small_ltnc.png)
 
 * Author: Luuk Verhoeven, [MFreak.nl](https://MFreak.nl/)
 * Author: Gemma Lesterhuis, [Lesterhuis Training & Consultancy](https://ltnc.nl/)
@@ -41,10 +39,23 @@ Special thanks to Gemma Lesterhuis ([Lesterhuis Training & Consultancy](https://
 3.  Go to Site Administrator > Notification
 4.  Install the plugin
 
-## Security
+## Bug and Problem support
 
-If you discover any security related issues, please email [servicedesk@ltnc.nl](mailto:lservicedesk@ltnc.nl) instead of using the issue tracker.
+This plugin is carefully developed and thoroughly tested, but bugs and problems can always appear.
+If you discover any security related issues, please email [servicedesk@ltnc.nl](mailto:servicedesk@ltnc.nl) instead of using the issue tracker.
+
+Please bear in mind that bug and problem support is not free of charge. This is with the exception of developers that report and suggest a solution by creating a pull request. 
+Support is included for customers with an active LTNC Moodle Addon Maintenance Program subscription. For more information send an email to [sales@ltnc.nl](mailto:sales@ltnc.nl)
+
+## Feature proposal
+We are aware that members of the community will have other needs and would love to see them solved by this plugin. We are always interested to read about your feature proposals or even get a pull request from you, but please understand that we handle these as feature proposals and not as feature requests that we commit to implementing.
+
+If you would like to see your feature proposal developed and included in our code base, please send an email to [sales@ltnc.nl](mailto:sales@ltnc.nl) with your suggestion so we can send you a formal proposal for paid development. 
+
+Please bear in mind that new features will only be added to Main Branch and only for Moodle versions that are in Current Stable release states (see [Moodle Release](https://moodledev.io/general/releases) for more information).
+
+Customers with an active LTNC Moodle Addon Maintenance Program subscription may receive priority consideration for their feature proposals.
 
 ## License
 
-The GNU GENERAL PUBLIC LICENSE. Please see [License File](LICENSE) for more information.
+Block Fast Navigation code is provided freely as open source software, under version 3 of the GNU General Public License.
